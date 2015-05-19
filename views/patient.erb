@@ -6,6 +6,12 @@
 <p class="lead">Patient Gender: <% if @patient.gender == 'm' %>Male<% else %>Female<% end %></p>
 <p class="lead">Patient Birthday: <%= @patient.birthday %></p>
 
+<form id="form_id" action="index.html" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <%= erb :patient_partial %>
+  <button name="submit" type="submit" class="btn btn-warning">Update</button>
+</form>
+<br>
 <% if @patient.visits.any? %>
   <ul>
     <% @patient.visit do |visit| %>
