@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: clinical_trials_development
+
+test:
+  adapter: postgresql
+  database: clinical_trials_test
