@@ -13,6 +13,11 @@ get '/patients' do
   erb(:patients)
 end
 
+post '/patients' do
+  Patient.create(name: params['name'], phone: params['phone'], email: params['email'], gender: params['gender'], birthday: params['birthday'])
+  redirect to '/patients'
+end
+
 get '/patients/add' do
 
   erb(:patient_form)
