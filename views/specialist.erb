@@ -1,0 +1,15 @@
+<h1>Specialists</h1>
+
+<% if @specialist.any? %>
+  <% @specialist.uniq.each do |special| %>
+  <li><% a href ="/specialist/<%= special.id %>"><%= special.name %></a>
+    <span class = "btn-group inline">
+          <form action = "/specialist/<%= special.id %>" method = "post">
+            <input name ="_method" type ="hidden" value ="delete">
+            <button id  = "delete_specialist" type = "submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove">
+            </button>
+          </form>
+        </span>
+      <p></p>
+  </li>
+<% else %>
