@@ -81,3 +81,4 @@ end
 
 patch 'specialist/:id' do
   name = params.fetch.('new_name', @specialist.name)
+end
