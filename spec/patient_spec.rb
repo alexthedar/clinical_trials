@@ -7,5 +7,10 @@ describe(Patient) do
 
   it { should validate_uniqueness_of :name }
 
-  it { should use_before_action :titleize_name }
+  describe '#titleize_name' do
+    it 'takes a name and turns it to title case' do
+      patient = Patient.create(name: 'john connor')
+      expect(patient.name).to(eq("John Connor"))
+    end
+  end
 end

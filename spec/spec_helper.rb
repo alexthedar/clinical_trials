@@ -34,4 +34,24 @@ RSpec.configure do |config|
       v.destroy
     end
   end
+  config.before(:each) do
+    Trial.all.each do |trial|
+      trial.destroy
+    end
+    Schedule.all.each do |sch|
+      sch.destroy
+    end
+    Patient.all.each do |pat|
+      pat.destroy
+    end
+    Specialist.all.each do |special|
+      special.destroy
+    end
+    Visit.all.each do |visit|
+      visit.destroy
+    end
+    Vacation.all.each do |v|
+      v.destroy
+    end
+  end
 end
