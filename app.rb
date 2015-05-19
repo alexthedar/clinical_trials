@@ -79,12 +79,5 @@ delete '/specialist/:id' do
   redirect('/specialists')
 end
 
-patch '/specialist/:id' do
-  special_id = params.fetch.('id').to_i
-  specialist = Special.find(special_id)
-  name = params.fetch.('new_name', specialist.name)
-  phone = params.fetch.('new_phone', specialist.phone)
-  email = params.fetch.('new_email', specialist.email)
-  specialist.update(name: 'new_name', phone: 'new_phone', email: 'new_email')
-  redirect('/specialists')
-end
+patch 'specialist/:id' do
+  name = params.fetch.('new_name', @specialist.name)
