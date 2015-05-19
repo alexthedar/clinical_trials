@@ -2,22 +2,7 @@
 
 <div class="col-md-4 col-md-offset-4">
   <form action="/patients" method="post">
-    <div class="form-group">
-      <label for="name">Patient Name</label>
-      <input class="form-control" type="text" name="name" id="name" autofocus required>
-      <label for="phone">Patient Phone Number</label>
-      <input class="form-control" type="text" name="phone" id="phone" required>
-      <label for="email">Patient e-mail</label>
-      <input class="form-control" type="text" name="email" id="email" required>
-      <label for="gender">Patient Gender</label>
-      <select class="form-control" name="gender" id="gender" required>
-        <option value="">Please Select</option>
-        <option value="m">Male</option>
-        <option value="f">Female</option>
-      </select>
-      <label for="birthday">Patient Birthday</label>
-      <input class="form-control" type="date" name="birthday" id="birthday" required>
-    </div>
+    <%= erb :patient_partial %>
     <button name="submit" type="submit" class="btn btn-success">Submit</button>
   </form>
 </div>

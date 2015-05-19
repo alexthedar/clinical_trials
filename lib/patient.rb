@@ -10,5 +10,4 @@ private
   def titleize_name
     self.name = name.downcase.titleize
   end
-
 end

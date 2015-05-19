@@ -1,36 +1,15 @@
 <h1>Specialists</h1>
 
-<% if @specialists.any? %>
-<h6>Here are all the specialists within the database:</h6>
-  <ol>
-    <% @specialists.uniq.each do |special| %>
-      <li><a href ="/specialist/<%= special.id %>"> <%= special.name %></a>
-        <span class = "btn-group inline">
-              <form action = "/specialist/<%= special.id %>" method = "post">
-                <input name ="_method" type ="hidden" value ="delete">
-                <button id  = "delete_specialist" type = "submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove">
-                </button>
-              </form>
-            </span>
-          <p></p>
-      </li>
-    <% end %>
-  </ol>
-  <h6>Click on a specialist name for more information or to edit.</h6>
-<% else %>
-  <h5>There are no specialists in the database.  Please add a specialist.</h5>
+<% if @specialist.any? %>
+  <% @specialist.uniq.each do |special| %>
+  <li><% a href ="/specialist/<%= special.id %>"><%= special.name %></a>
+    <span class = "btn-group inline">
+          <form action = "/specialist/<%= special.id %>" method = "post">
+            <input name ="_method" type ="hidden" value ="delete">
+            <button id  = "delete_specialist" type = "submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove">
+            </button>
+          </form>
+        </span>
+      <p></p>
+  </li>
 <% end %>
-
-<br>
-<div class="form group">
-  <p><form action="/add_specialist" method="post">
-    <input id="name" name="name" placeholder="Joe Smith">
-    <input id="phone" name="phone" placeholder="999-333-2222">
-    <input id="email" name="email" placeholder="joe@joe.com">
-
-    <button type="submit" class="btn btn-xs btn-success">
-      <span class="glyphicon glyphicon-plus"></span>
-    </button>
-  </form></p>
-</div>
-<br>
