@@ -1,0 +1,18 @@
+<h1 class="page-header text-center">Welcome to the patients page!</h1>
+
+
+<% if @patients.any? %>
+
+
+
+
+
+
+<% else %>
+
+
+<p class="lead"> No patients have been added yet add patients <a href="/patient/add">here</a>.
+
+</p>
+
+<% end %>
