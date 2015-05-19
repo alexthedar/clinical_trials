@@ -1,10 +1,10 @@
 <h1><%= @patient.name%>'s information</h1>
 
-
-
-
-
-
+<p class="lead">Patient Name: <%= @patient.name %></p>
+<p class="lead">Patient Phone: <%= @patient.phone %></p>
+<p class="lead">Patient e-mail: <%= @patient.email %></p>
+<p class="lead">Patient Gender: <% if @patient.gender == 'm' %>Male<% else %>Female<% end %></p>
+<p class="lead">Patient Birthday: <%= @patient.birthday %></p>
 
 <% if @patient.visits.any? %>
   <ul>
