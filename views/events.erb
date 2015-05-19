@@ -1,4 +1,6 @@
 <% f = File.open(File.dirname(__FILE__) + '/events.ics', "r") %>
-<% contents = f.read %>
-<%= contents %>
+<% f.each_line do |line| %>
+  <%= line %>
+  <br>  
+<% end %>
 <% f.close %>
