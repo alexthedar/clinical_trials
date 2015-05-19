@@ -11,4 +11,10 @@ describe 'the patient route', type: :feature do
     visit '/patients'
     expect(page).to have_content 'John Connor'
   end
+
+  it 'will show a page with a specific patient\'s information' do
+    patient = Patient.create(name: 'John Connor')
+    visit "/patients/#{patient.id}"
+    expect(page).to have_content 'Patient Name: John Connor'
+  end
 end

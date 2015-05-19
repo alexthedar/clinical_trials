@@ -23,6 +23,12 @@ get '/patients/add' do
   erb(:patient_form)
 end
 
+
+get '/patients/:id' do
+  @patient = Patient.find(params['id'])
+  erb(:patient)
+end
+
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
   cal.event do |e|
