@@ -1,4 +1,6 @@
 class Trial < ActiveRecord::Base
-  has_and_belongs_to_many :visits
+  has_many :visits
+  has_many :patients, through: :visits
+  has_many :specialists, through: :visits
   has_one :schedule
 end
