@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
 <head>
   <title>Clinical Trials</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -11,34 +10,22 @@
     <%= yield %>
   </div>
 </body>
-<footer>
-  <div id ="footer">
-    <div class ="row">
-      <div class="text-center">
-        <div class="col-md-4">
-          <a href="/patients">patients</a>
-        </div>
-        <div class="col-md-4">
-          <a href="/trials">trials</a>
-        </div>
-        <div class="col-md-4">
-          <a href="/specialists">specialist</a>
-        </div>
-      </div>
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">OHSU</a>
     </div>
-    <div class ="row">
-      <div class="text-center">
-        <div class="col-md-4">
-          <a href="/add_patient">add patient</a>
-        </div>
-        <div class="col-md-4">
-          <a href="/add_trial">add trial</a>
-        </div>
-        <div class="col-md-4">
-          <a href="/add_specialist">add specialist</a>
-        </div>
-      </div>
+    <div class="row">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/patients">Patients</a></li>
+        <li><a href="/specialists">Specialists</a></li>
+        <li><a href="/trials">Trials</a></li>
+        <li><a href="/patients/add">Add patients</a></li>
+        <li><a href="/specialists/add">Add Specialists</a></li>
+        <li><a href="/specialists/add">Add Trial</a></li>
+      </ul>
     </div>
   </div>
-</footer>
+</nav>
 </html>

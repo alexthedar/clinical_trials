@@ -1,23 +1,15 @@
-source("https://rubygems.org")
+source "https://rubygems.org"
 
 gem 'icalendar', '~> 2.3.0'
-gem("sinatra")
-gem("sinatra-contrib", :require => "sinatra/reloader")
-gem("sinatra-activerecord")
-gem("rake")
-gem("pg")
-gem("pry")
-gem("shoulda-matchers")
+gem "sinatra"
+gem "sinatra-contrib", :require => "sinatra/reloader"
+gem "sinatra-activerecord"
+gem "rake"
+gem "pg"
+gem "pry"
 
-
-group(:test) do
-  gem("rspec")
-  gem("pry")
-  gem("shoulda-matchers")
-end
-
-group(:production) do
-  gem("sinatra")
-  gem("pry")
-  gem("shoulda-matchers")
+group :test do
+  gem 'capybara', require: 'capybara/rspec'
+  gem "rspec"
+  gem "shoulda-matchers"
 end

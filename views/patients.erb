@@ -1,0 +1,25 @@
+<h1>Welcome to the patients page!</h1>
+
+
+<% if @patients.any? %>
+
+<p class="lead"> Here are the following patients available for trial studies:
+  <ul>
+    <% @patients.each do |patient| %>
+    <li><a href="/patients/<%= patient.id%>"><%= patient.name %> </a></li>
+    <% end %>
+  </ul>
+
+</p>
+
+
+
+
+<% else %>
+
+
+<p class="lead"> No patients have been added yet add patients <a href="/patients/add">here</a>.
+
+</p>
+
+<% end %>

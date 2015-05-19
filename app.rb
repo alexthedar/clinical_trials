@@ -3,6 +3,32 @@ Bundler.require :default
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
+get '/' do
+
+  erb(:index)
+end
+
+get '/patients' do
+  @patients = Patient.all
+  erb(:patients)
+end
+
+post '/patients' do
+  Patient.create(name: params['name'], phone: params['phone'], email: params['email'], gender: params['gender'], birthday: params['birthday'])
+  redirect to '/patients'
+end
+
+get '/patients/add' do
+
+  erb(:patient_form)
+end
+
+
+get '/patients/:id' do
+  @patient = Patient.find(params['id'])
+  erb(:patient)
+end
+
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
   cal.event do |e|
@@ -56,21 +82,9 @@ end
 patch '/specialist/:id' do
   special_id = params.fetch.('id').to_i
   specialist = Special.find(special_id)
-  if params[:new_name]
-    name = params.fetch.('new_name')
-    if name != ""
-      specialist.update({name: name})
-    end
-  if params[:new_phone]
-    phone = params.fetch.('new_phone')
-    if phone != ""
-      specialist.update(phone: phone)
-    end
-  if params[:new_email]
-    email = params.fetch.('new_email')
-    if email != ""
-      specialist.update('new_email')
-    end
-  end
-  redirect('specilists')
+  name = params.fetch.('new_name', specialist.name)
+  phone = params.fetch.('new_phone', specialist.phone)
+  email = params.fetch.('new_email', specialist.email)
+  specialist.update(name: 'new_name', phone: 'new_phone', email: 'new_email')
+  redirect('/specialists')
 end
