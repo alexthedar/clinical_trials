@@ -29,6 +29,12 @@ get '/patients/:id' do
   erb(:patient)
 end
 
+patch '/patients/:id' do
+  patient = Patient.find(params['id'])
+  patient.update(name: params.fetch('name', patient.name), phone: params.fetch('phone', patient.phone), email: params.fetch('email', patient.email), gender: params.fetch('gender', patient.gender), birthday: params.fetch('birthday', patient.birthday))
+  redirect("/patients/#{patient.id}")
+end
+
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
   cal.event do |e|
@@ -81,3 +87,4 @@ end
 
 patch 'specialist/:id' do
   name = params.fetch.('new_name', @specialist.name)
+end
