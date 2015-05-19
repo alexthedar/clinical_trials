@@ -68,16 +68,23 @@ get '/specialists' do
   erb(:specialists)
 end
 
-post 'specialist/:id' do
+post '/add_specialist' do
   Specialist.create({name: params.fetch('name'), phone: params.fetch('phone', email: params.fetch('email'))})
-  erb(:specialist)
+  redirect('/specialists')
 end
 
 delete '/specialist/:id' do
-  specialist = Special.find(params.fetch.('id').to_i)
+  specialist = Specialist.find(params.fetch('id').to_i)
   specialist.delete
   redirect('/specialists')
 end
 
-patch 'specialist/:id' do
-  name = params.fetch.('new_name', @specialist.name)
+patch '/specialist/:id' do
+  special_id = params.fetch('id').to_i
+  specialist = Special.find(special_id)
+  name = params.fetch.('new_name', specialist.name)
+  phone = params.fetch.('new_phone', specialist.phone)
+  email = params.fetch.('new_email', specialist.email)
+  specialist.update(name: 'new_name', phone: 'new_phone', email: 'new_email')
+  redirect('/specialists')
+end
