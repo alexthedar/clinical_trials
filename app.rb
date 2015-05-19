@@ -79,6 +79,9 @@ delete '/specialist/:id' do
   redirect('/specialists')
 end
 
+patch 'specialist/:id' do
+  name = params.fetch.('new_name', @specialist.name)
+
 # patch '/specialist/:id' do
 #   special_id = params.fetch.('id').to_i
 #   specialist = Special.find(special_id)
