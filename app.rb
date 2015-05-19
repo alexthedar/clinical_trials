@@ -1,6 +1,28 @@
 require 'bundler/setup'
 Bundler.require :default
 
+
+
+
+
+
+
+
+get '/' do
+
+  erb(:index)
+end
+
+get '/patients' do
+
+  erb(:patients)
+end
+
+get '/patients/add' do
+
+  erb(:patient_form)
+end
+
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
   cal.event do |e|
