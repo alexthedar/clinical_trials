@@ -10,6 +10,13 @@ get '/events/export' do
     e.description = "Have a long lunch meeting and decide nothing..."
     e.ip_class    = "PRIVATE"
   end
+  cal.event do |e|
+    e.dtstart     = Icalendar::Values::Date.new('20150428')
+    e.dtend       = Icalendar::Values::Date.new('20150429')
+    e.summary     = "Meeting with the other man."
+    e.description = "Have a short lunch meeting and decide nothing..."
+    e.ip_class    = "PRIVATE"
+  end
   cal.publish
   Dir[File.dirname(__FILE__) + '/views/events.ics'].each do |file|
     output = File.open( file, "w" )
