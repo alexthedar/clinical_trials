@@ -33,14 +33,6 @@ ActiveRecord::Schema.define(version: 20150519223753) do
 
   add_index "schedules", ["trial_id"], name: "index_schedules_on_trial_id", using: :btree
 
-  create_table "schedules_visits", id: false, force: :cascade do |t|
-    t.integer "schedule_id"
-    t.integer "visit_id"
-  end
-
-  add_index "schedules_visits", ["schedule_id"], name: "index_schedules_visits_on_schedule_id", using: :btree
-  add_index "schedules_visits", ["visit_id"], name: "index_schedules_visits_on_visit_id", using: :btree
-
   create_table "specialists", force: :cascade do |t|
     t.string "name"
     t.string "phone"
