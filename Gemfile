@@ -17,5 +17,6 @@ end
 group(:production) do
   gem("sinatra")
   gem("pry")
+  gem("shoulda-matchers")
 
 end

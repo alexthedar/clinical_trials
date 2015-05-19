@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe(Trial) do
+describe(Vacation) do
 end
