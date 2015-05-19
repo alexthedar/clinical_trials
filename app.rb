@@ -79,24 +79,24 @@ delete '/specialist/:id' do
   redirect('/specialists')
 end
 
-patch '/specialist/:id' do
-  special_id = params.fetch.('id').to_i
-  specialist = Special.find(special_id)
-  if params[:new_name]
-    name = params.fetch.('new_name')
-    if name != ""
-      specialist.update({name: name})
-    end
-  if params[:new_phone]
-    phone = params.fetch.('new_phone')
-    if phone != ""
-      specialist.update(phone: phone)
-    end
-  if params[:new_email]
-    email = params.fetch.('new_email')
-    if email != ""
-      specialist.update('new_email')
-    end
-  end
-  redirect('specilists')
-end
+# patch '/specialist/:id' do
+#   special_id = params.fetch.('id').to_i
+#   specialist = Special.find(special_id)
+#   if params[:new_name]
+#     name = params.fetch.('new_name')
+#     if name != ""
+#       specialist.update({name: name})
+#     end
+#   if params[:new_phone]
+#     phone = params.fetch.('new_phone')
+#     if phone != ""
+#       specialist.update(phone: phone)
+#     end
+#   if params[:new_email]
+#     email = params.fetch.('new_email')
+#     if email != ""
+#       specialist.update('new_email')
+#     end
+#   end
+#   redirect('specilists')
+# end
