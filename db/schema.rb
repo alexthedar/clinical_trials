@@ -17,11 +17,12 @@ ActiveRecord::Schema.define(version: 20150520162717) do
   enable_extension "plpgsql"
 
   create_table "patients", force: :cascade do |t|
-    t.string "name"
     t.string "phone"
     t.string "email"
     t.string "gender"
     t.date   "birthday"
+    t.string "first_name"
+    t.string "last_name"
   end
 
   create_table "schedules", force: :cascade do |t|
