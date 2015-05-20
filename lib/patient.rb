@@ -3,11 +3,18 @@ class Patient < ActiveRecord::Base
   has_one :schedule, through: :visits
   has_many :specialists, through: :visits
   has_one :trial, through: :visits
-  validates :name, { presence: true, uniqueness: { case_sensitive: false } }
+  validates :first_name, { presence: true, uniqueness: { case_sensitive: false } }
+  validates :last_name, { presence: true, uniqueness: { case_sensitive: false } }
   before_save :titleize_name
+
+  def name
+    name = "#{last_name}, #{first_name}"
+  end
 
 private
   def titleize_name
-    self.name = name.downcase.titleize
+# binding.pry
+    self.first_name = first_name.downcase.titleize
+    self.last_name = last_name.downcase.titleize
   end
 end

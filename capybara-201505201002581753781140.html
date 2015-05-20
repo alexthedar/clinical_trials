@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clinical Trials</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="wrap" class="container">
+    <h1>Connor, John's information</h1>
+
+<p class="lead">Patient Name: Connor, John</p>
+<p class="lead">Patient Phone: </p>
+<p class="lead">Patient e-mail: </p>
+<p class="lead">Patient Gender: Female</p>
+<p class="lead">Patient Birthday: </p>
+
+<form id="form_id" action="/patients/49" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <div class="form-group">
+  <label for="first_name">Patient First Name</label>
+  <input class="form-control" type="text" name="first_name" id="first_name" autofocus required>
+  <label for="last_name">Patient Last Name</label>
+  <input class="form-control" type="text" name="last_name" id="last_name" autofocus required>
+  <label for="phone">Patient Phone Number</label>
+  <input class="form-control" type="text" name="phone" id="phone" required>
+  <label for="email">Patient e-mail</label>
+  <input class="form-control" type="text" name="email" id="email" required>
+  <label for="gender">Patient Gender</label>
+  <select class="form-control" name="gender" id="gender" required>
+    <option value="">Please Select</option>
+    <option value="m">Male</option>
+    <option value="f">Female</option>
+  </select>
+  <label for="birthday">Patient Birthday</label>
+  <input class="form-control" type="date" name="birthday" id="birthday" required>
+</div>
+
+  <button name="submit" type="submit" class="btn btn-warning">Update</button>
+</form>
+<br>
+
+
+<p class="lead"> Connor, John currently has no visits please see the <a href="/trials">trials</a> page to assign them to a trial.
+
+</p>
+
+
+  </div>
+</body>
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">OHSU</a>
+    </div>
+    <div class="row">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/patients">Patients</a></li>
+        <li><a href="/specialists">Specialists</a></li>
+        <li><a href="/trials">Trials</a></li>
+        <li><a href="/patients/add">Add patients</a></li>
+        <li><a href="/specialists/add">Add Specialists</a></li>
+        <li><a href="/specialists/add">Add Trial</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</html>
