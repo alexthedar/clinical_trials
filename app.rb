@@ -65,19 +65,19 @@ post '/specialists/add' do
   redirect '/specialists'
 end
 
-delete '/specialist/:id' do
+delete '/specialists/:id' do
   specialist = Specialist.find(params.fetch('id').to_i)
   specialist.delete
   redirect '/specialists'
 end
 
-get '/specialist/:id' do
+get '/specialists/:id' do
   @specialist = Specialist.find(params['id'])
   @vacations = @specialist.vacations
   erb :specialist
 end
 
-post '/specialist/:id' do
+post '/specialists/:id' do
   @specialist = Specialist.find(params.fetch('id'))
   first_name = params.fetch('first_name')
   last_name = params.fetch('last_name')
@@ -159,10 +159,12 @@ get '/trials/:id' do
   @trial = Trial.find(params.fetch('id').to_i)
   @patients = Patient.all
   @enrolled_patients = @trial.patients
+  @specialists = Specialist.all
+  @assigned_specialists = @trial.specialists
   erb :trial
 end
 
-post '/trials/:id' do
+post '/trials/:id/update' do
   @trial = Trial.find(params.fetch('id'))
   company = params.fetch('company')
   name = params.fetch('name')
@@ -198,6 +200,15 @@ post '/trials/:id/add/patients' do
   patients = Patient.find(params['patient_ids'])
   patients.each do |patient|
     trial.patients.push(patient)
+  end
+  redirect to "/trials/#{trial.id}"
+end
+
+post '/trials/:id/add/specialists' do
+  trial = Trial.find(params['id'])
+  specialists = Specialist.find(params['specialist_ids'])
+  specialists.each do |specialist|
+    trial.specialists.push(specialist)
   end
   redirect to "/trials/#{trial.id}"
 end
