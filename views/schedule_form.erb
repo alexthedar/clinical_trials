@@ -1,0 +1,12 @@
+<h1>Create the schedule for <%= @trial.name %></h1>
+
+<% if @schedule.any? %>
+  <ul>
+    <% @schedule.each do |visit| %>
+      <li>Visit number: <%= visit.visit_number%></li>
+    <% end %>
+  </ul>
+<% end %>
+<div class="col-md-6 col-md-offset-3">
+  <%= erb :add_schedule_partial %>
+</div>
