@@ -7,11 +7,10 @@ describe(Patient) do
   it { should have_one (:trial)}
 
   describe 'validations' do
-    subject { Patient.create(first_name: 'john', last_name: 'connor', phone: '(404) 281-3895') }
+    subject { Patient.create(first_name: 'john', last_name: 'connor', phone: '(555) 555-5555') }
     it { should validate_presence_of :last_name }
-    it { should validate_uniqueness_of :first_name }
     it { should validate_presence_of :first_name }
-    it { should validate_uniqueness_of :last_name }
+    it { should validate_length_of(:phone).is_equal_to 10 }
   end
 
   describe '#titleize_name' do
