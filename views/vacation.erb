@@ -1,0 +1,42 @@
+<div class="container">
+
+<h1><%= @specialist.name %> Days Unavailable</h1>
+<!-- # <% if @vacations.any? %> -->
+  <table class="table table-hover table-responsive table-condensed">
+    <thead>
+      <tr>
+        <th class="col-md-1">Start</th>
+        <th class="col-md-3">End</th>
+        <th class="col-md-3">Update</th>
+        <th class="col-md-1">Delete</th>
+      </tr>
+    </thead>
+  <% @vacations.each do |vacay| %>
+    <tbody>
+      <tr>
+        <div class="form-group">
+          <td>
+            <input class="form-control" type="text" name="first_name" id="first_name" value="<%= vacay.start_date %>">
+          </td>
+          <td>
+            <input class="form-control" type="text" name="last_name" id="last_name" value="<%= vacay.last_name %>">
+          </td>
+          <td>
+            <form action="/vacation/<%= vacation.id %>" method="post">
+              <input name="_method" type="hidden" value ="patch">
+                <button id="delete_specialist" type="submit" class="btn btn-xs btn-success glyphicon glyphicon-plus"></button>
+          </td>
+          <td>
+            <form action="/vacation/<%= vacation.id %>" method="post">
+              <%= erb :sm_del_partial %>
+            </form>
+          </td>
+        </div>
+      </tr>
+    </tbody>
+  <% end %>
+  </table>
+<!-- # <% else %>
+#   <p class="lead"> <%= @specialist.name %> has no unavailable days yet. Please add <a href="/vacation/add/<%= @specialist.id %>">here</a>.
+# <% end %> -->
+</div>
