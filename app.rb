@@ -73,7 +73,7 @@ get '/specialists' do
   erb :specialists
 end
 
-get 'specialists/add' do
+get '/specialists/add' do
   erb :specialist_form
 end
 
