@@ -6,7 +6,6 @@
 <p class="lead"> Description: <%= @trial.description %></p>
 
 <form id="form_id" action="/trials/<%= @trial.id %>" method="post">
-  <!-- <input type="hidden" name="_method" value="patch"> -->
   <%= erb :trial_partial %>
   <button name="submit" type="submit" class="btn btn-warning">Update</button>
 </form>
