@@ -1,37 +1,38 @@
+<div class="container">
+
 <h1>Specialists</h1>
 
 <% if @specialists.any? %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th class="col-md-1">Edit</th>
+        <th class="col-md-3">Name</th>
+        <th class="col-md-3">Phone</th>
+        <th class="col-md-4">Email</th>
+        <th class="col-md-1">Delete</th>
+      </tr>
+    </thead>
   <% @specialists.each do |special| %>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Edit</th>
-          <th>Name</th>
-          <!-- <th>Last Name</th> -->
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-            <td>
-              <a href="/specialist/<%= special.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
-            </td>
-            <td><%= special.name %></td>
-            <!-- <td><%= special.last_name %></td> -->
-            <td><%= special.phone %></td>
-            <td><%= special.email %></td>
-            <td>
-              <form action="/specialist/<%= special.id %>" method="post">
-                <input name="_method" type="hidden" value ="delete">
-                  <button id="delete_specialist" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
-              </form>
-            </td>
-        </tr>
-      </tbody>
-    </table>
+    <tbody>
+      <tr>
+          <td>
+            <a href="/specialist/<%= special.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
+          </td>
+          <td><%= special.name %></td>
+          <td><%= special.phone %></td>
+          <td><%= special.email %></td>
+          <td>
+            <form action="/specialist/<%= special.id %>" method="post">
+              <input name="_method" type="hidden" value ="delete">
+                <button id="delete_specialist" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+            </form>
+          </td>
+      </tr>
+    </tbody>
   <% end %>
+  </table>
 <% else %>
   <p class="lead"> No specialists have been added yet. Please add specialists<a href="/specialists/add">here</a>.
 <% end %>
+</div>
