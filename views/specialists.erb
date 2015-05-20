@@ -6,8 +6,8 @@
       <thead>
         <tr>
           <th>Edit</th>
-          <th>First Name</th>
-          <th>Last Name</th>
+          <th>Name</th>
+          <!-- <th>Last Name</th> -->
           <th>Phone</th>
           <th>Email</th>
           <th>Delete</th>
@@ -18,8 +18,8 @@
             <td>
               <a href="/specialist/<%= special.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
             </td>
-            <td><%= special.first_name %></td>
-            <td><%= special.last_name %></td>
+            <td><%= special.name %></td>
+            <!-- <td><%= special.last_name %></td> -->
             <td><%= special.phone %></td>
             <td><%= special.email %></td>
             <td>
@@ -33,5 +33,5 @@
     </table>
   <% end %>
 <% else %>
-  <p class="lead"> No specialists have been added yet. Please add specialists<a href="/specialists/add">here</a>.  
+  <p class="lead"> No specialists have been added yet. Please add specialists<a href="/specialists/add">here</a>.
 <% end %>
