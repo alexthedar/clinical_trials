@@ -65,18 +65,19 @@ post '/specialists/add' do
   redirect '/specialists'
 end
 
-delete '/specialist/:id' do
+delete '/specialists/:id' do
   specialist = Specialist.find(params.fetch('id').to_i)
   specialist.delete
   redirect '/specialists'
 end
 
-get '/specialist/:id' do
+get '/specialists/:id' do
   @specialist = Specialist.find(params['id'])
   @vacations = @specialist.vacations
   erb :specialist
 end
 
+<<<<<<< HEAD
 patch '/specialist/:id' do
   specialist = Specialist.find(params['id'])
   specialist.update(first_name: params.fetch('first_name'))
@@ -112,6 +113,9 @@ end
 # end
 
 get '/vacation/:id' do
+=======
+post '/specialists/:id' do
+>>>>>>> 964ebd6c721761dd788837d99078cab3cfe2521f
   @specialist = Specialist.find(params.fetch('id'))
   @vacations = @specialist.vacations
   erb(:vacation)
@@ -123,6 +127,7 @@ get '/vacation/add/:id' do
   erb(:vacation_form)
 end
 
+<<<<<<< HEAD
 
 post '/vacation/add/:id' do
   @specialist = Specialist.find(params.fetch('id'))
@@ -131,6 +136,8 @@ post '/vacation/add/:id' do
   redirect "/vacation/#{@specialist.id}"
 end
 
+=======
+>>>>>>> 964ebd6c721761dd788837d99078cab3cfe2521f
 get '/trials' do
   @alltrials = Trial.all
   @trials = @alltrials.order(:name)
@@ -148,10 +155,15 @@ end
 
 get '/trials/:id' do
   @trial = Trial.find(params.fetch('id').to_i)
+  @patients = Patient.all
+  @enrolled_patients = @trial.patients
+  @specialists = Specialist.all
+  @assigned_specialists = @trial.specialists
   erb :trial
 end
 
-post '/trials/:id' do
+post '/trials/:id/update' do
+  binding.pry
   @trial = Trial.find(params.fetch('id'))
   company = params.fetch('company')
   name = params.fetch('name')
@@ -182,6 +194,49 @@ delete '/trials/:id' do
   redirect '/trials'
 end
 
+<<<<<<< HEAD
+=======
+post '/trials/:id/add/patients' do
+  trial = Trial.find(params['id'])
+  patients = Patient.find(params['patient_ids'])
+  patients.each do |patient|
+    trial.patients.push(patient)
+  end
+  redirect to "/trials/#{trial.id}"
+end
+
+post '/trials/:id/add/specialists' do
+  trial = Trial.find(params['id'])
+  specialists = Specialist.find(params['specialist_ids'])
+  specialists.each do |specialist|
+    trial.specialists.push(specialist)
+  end
+  redirect to "/trials/#{trial.id}"
+end
+
+get '/trials/:id/schedule' do
+  @trial = Trial.find(params['id'])
+  @schedule = @trial.schedules
+
+  erb :schedule
+end
+
+get '/trials/:id/schedule/add' do
+  @trial = Trial.find(params['id'])
+  @schedule = @trial.schedules
+  erb :schedule_form
+end
+
+patch '/trials/:id/schedule/add' do
+  @trial = Trial.find(params['id'])
+  schedule = Schedule.create(description: params['description'], visit_number: params['visit_number'], days_to_next: params['days_to_next'], trial_id: @trial.id)
+  @schedule = @trial.schedules
+  redirect to "/trials/#{@trial.id}/schedule/add"
+end
+
+
+
+>>>>>>> 964ebd6c721761dd788837d99078cab3cfe2521f
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
   cal.event do |e|

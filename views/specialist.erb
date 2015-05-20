@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div style = "border-right: 1px solid #ccc" class="col-md-8">
-      <form action="/specialist/<%= @specialist.id %>" method="post">
+      <form action="/specialists/<%= @specialist.id %>" method="post">
         <input type="hidden" name="_method" value="patch">
         <%= erb :specialist_partial %>
         <button name="submit" type="submit" class="btn btn-warning">Update</button>
@@ -44,7 +44,7 @@
 
 <% if @specialist.visits.any? %>
   <ul>
-    <% @specialist.visit do |visit| %>
+    <% @specialist.visits do |visit| %>
     <li><a href="/visits/<%= visit.id %>"> <%= visits.name %> </a></li>
     <% end %>
   </ul>

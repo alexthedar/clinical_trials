@@ -2,15 +2,42 @@
 
 <% if @trials.any? %>
   <% @trials.uniq.each do |trial| %>
-    <li><a href="/trials/<%= trial.id %>"><%= trial.name %></a>
-      <span class="btn-group inline">
-            <form action="/trials/<%= trial.id %>" method="post">
-              <input name="_method" type="hidden" value ="delete">
-              <button id="delete_trial" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove">
-              </button>
-            </form>
-          </span>
-        <p></p>
-    </li>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>View</th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>
+              <a href="/trials/add" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
+            </td>
+            <td>Add New Trial Here</td>
+            </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+            <td>
+              <a href="/trials/<%= trial.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
+            </td>
+            <td><%= trial.name %></td>
+            <td><%= trial.company %></td>
+            <td>
+              <form action="/trials/<%= trial.id %>" method="post">
+                <input name="_method" type="hidden" value ="delete">
+                <button id="delete_trial" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove">
+                </button>
+              </form>
+            </td>
+        </tr>
+      </tbody>
+    </table>
   <% end %>
+<% else %>
+  <p class="lead"> No trials have been added yet. Please add trials <a href="/trials/add">here</a>.
 <% end %>

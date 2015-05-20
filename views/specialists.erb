@@ -13,17 +13,26 @@
         <th class="col-md-1">Delete</th>
       </tr>
     </thead>
+    <tbody>
+      <tr>
+          <td>
+            <a href="/specialists/add" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
+          </td>
+          <td>Add New Specialist Here</td>
+          </td>
+      </tr>
+    </tbody>
   <% @specialists.each do |special| %>
     <tbody>
       <tr>
           <td>
-            <a href="/specialist/<%= special.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
+            <a href="/specialists/<%= special.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
           </td>
           <td><%= special.name %></td>
           <td><%= special.phone %></td>
           <td><%= special.email %></td>
           <td>
-            <form action="/specialist/<%= special.id %>" method="post">
+            <form action="/specialists/<%= special.id %>" method="post">
               <input name="_method" type="hidden" value ="delete">
                 <button id="delete_specialist" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
             </form>
