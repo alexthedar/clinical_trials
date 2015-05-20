@@ -1,0 +1,16 @@
+<h1>Trials</h1>
+
+<% if @trials.any? %>
+  <% @trials.uniq.each do |trial| %>
+    <li><a href="/trials/<%= trial.id %>"><%= trial.name %></a>
+      <span class="btn-group inline">
+            <form action="/trials/<%= trial.id %>" method="post">
+              <input name="_method" type="hidden" value ="delete">
+              <button id="delete_trial" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove">
+              </button>
+            </form>
+          </span>
+        <p></p>
+    </li>
+  <% end %>
+<% end %>
