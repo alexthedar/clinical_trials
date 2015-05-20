@@ -11,7 +11,7 @@ class Patient < ActiveRecord::Base
 
   after_validation :convert_number
   before_save :titleize_name
-
+  before_update :stabilize_fields
 
   def name
     name = "#{last_name}, #{first_name}"
@@ -29,5 +29,10 @@ private
   def titleize_name
     self.first_name = first_name.downcase.titleize
     self.last_name = last_name.downcase.titleize
+  end
+
+  def stabilize_fields
+
+
   end
 end

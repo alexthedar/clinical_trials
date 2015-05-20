@@ -1,18 +1,18 @@
 <div class="form-group">
   <label for="first_name">Patient First Name</label>
-  <input class="form-control" type="text" name="first_name" id="first_name" autofocus required>
+  <input class="form-control" type="text" name="first_name" id="first_name" value="<%= @patient.first_name %>" autofocus>
   <label for="last_name">Patient Last Name</label>
-  <input class="form-control" type="text" name="last_name" id="last_name" autofocus required>
+  <input class="form-control" type="text" name="last_name" id="last_name" value="<%= @patient.last_name %>">
   <label for="phone">Patient Phone Number</label>
-  <input class="form-control" type="text" name="phone" id="phone" required>
+  <input class="form-control" type="text" name="phone" id="phone" value="<%= @patient.phone %>">
   <label for="email">Patient e-mail</label>
-  <input class="form-control" type="text" name="email" id="email" required>
+  <input class="form-control" type="text" name="email" id="email" value="<%= @patient.email %>">
   <label for="gender">Patient Gender</label>
-  <select class="form-control" name="gender" id="gender" required>
+  <select class="form-control" name="gender" id="gender" value="<%= @patient.gender %>">
     <option value="">Please Select</option>
     <option value="m">Male</option>
     <option value="f">Female</option>
   </select>
   <label for="birthday">Patient Birthday</label>
-  <input class="form-control" type="date" name="birthday" id="birthday" required>
+  <input class="form-control" type="date" name="birthday" id="birthday" value="<%= @patient.birthday %>">
 </div>

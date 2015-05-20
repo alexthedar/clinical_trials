@@ -3,6 +3,10 @@ Bundler.require :default
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
+before do
+  @patient = Patient.new
+end
+
 get '/' do
   erb :index
 end
@@ -30,7 +34,12 @@ end
 
 patch '/patients/:id' do
   patient = Patient.find(params['id'])
-  patient.update(first_name: params.fetch('first_name', patient.first_name), last_name: params.fetch('last_name', patient.last_name), phone: params.fetch('phone', patient.phone), email: params.fetch('email', patient.email), gender: params.fetch('gender', patient.gender), birthday: params.fetch('birthday', patient.birthday))
+  patient.update(first_name: params.fetch('first_name'))
+  patient.update(last_name: params.fetch('last_name'))
+  patient.update(phone: params.fetch('phone'))
+  patient.update(email: params.fetch('email'))
+  patient.update(gender: params.fetch('gender'))
+  patient.update(birthday: params.fetch('birthday'))
   redirect "/patients/#{patient.id}"
 end
 
