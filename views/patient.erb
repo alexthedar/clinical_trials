@@ -14,8 +14,11 @@
 <br>
 <% if @patient.visits.any? %>
   <ul>
-    <% @patient.visit do |visit| %>
-    <li><a href="/visits/<%= visit.id %>"> <%= visits.name %> </a></li>
+    <% @patient.visits.each do |visit| %>
+      <% unless visit.trial == nil %>
+
+      <li><a href="/visits/<%= visit.id %>"> <%= visit.trial %> </a></li>
+      <% end %>
     <% end %>
   </ul>
 

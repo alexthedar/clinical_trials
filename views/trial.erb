@@ -1,12 +1,53 @@
 <h1><%= @trial.name%> information</h1>
+<div class-"row">
+  <div class="col-md-6">
+    <% if @enrolled_patients.any? %>
+      <p class='lead'> Current patients for this trial:</p>
+        <ul>
+          <% @enrolled_patients.each() do |patient| %>
+            <li><a href="/patients/<%= patient.id%>"> <%= patient.name %></a></li>
+          <% end %>
+        </ul>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <% if @patients.any? %>
+      <p class="lead"> Add a new patient to the trial here </p>
+      <form action="/trials/<%= @trial.id %>/add/patients" method="post">
+        <% @patients.each do |patient| %>
+          <% unless @trial.patients.include?(patient) %>
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="patient_ids[]" value="<%= patient.id %>"> <%= patient.name %>
+                </label>
+              </div>
+          </div>
+          <% end %>
+        <% end %>
+        <div class="form-group">
+          <button name="add_patients" type='submit' class="btn btn-success">Add Patients</button>
+        </div>
+      </form>
+    <% else %>
+      <p>It appears no patients have been added yet feel free to <a href="/patients">add a patient</a>.</p>
+    <% end %>
+  </div>
+</div>
 
-<p class="lead"> Company: <%= @trial.company %></p>
-<p class="lead"> Trial Name: <%= @trial.name %></p>
-<p class="lead"> Number of Visits: <%= @trial.number_of_visits %></p>
-<p class="lead"> Description: <%= @trial.description %></p>
-
-<form id="form_id" action="/trials/<%= @trial.id %>" method="post">
-  <%= erb :trial_partial %>
-  <button name="submit" type="submit" class="btn btn-warning">Update</button>
-</form>
-<br>
+<div class="row">
+  <div class="col-md-4">
+    <p class="lead">Trial Information:</p>
+    <p><strong>Company:</strong> <%= @trial.company %></p>
+    <p><strong>Trial Name:</strong> <%= @trial.name %></p>
+    <p><strong>Number of Visits:</strong> <%= @trial.number_of_visits %></p>
+    <p><strong>Description:</strong> <%= @trial.description %></p>
+  </div>
+  <div class="col-md-4">
+    <p class="lead">Update Trial Information:</p>
+    <form id="form_id" action="/trials/<%= @trial.id %>" method="post">
+      <%= erb :trial_partial %>
+      <button name="submit" type="submit" class="btn btn-warning">Update</button>
+    </form>
+  </div>
+</div>
