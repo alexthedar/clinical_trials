@@ -45,6 +45,29 @@ get '/specialists/add' do
 end
 
 post '/specialists/add' do
+  Specialist.create({first_name: params.fetch('first_name'), last_name: params.fetch('last_name'), phone: params.fetch('phone', email: params.fetch('email'))})
+  redirect '/specialists'
+end
+
+delete '/specialist/:id' do
+  specialist = Specialist.find(params.fetch('id').to_i)
+  specialist.delete
+  redirect '/specialists'
+end
+
+
+
+get '/specialists' do
+  @allspecialists = Specialist.all
+  @specialists = @allspecialists.order(:last_name)
+  erb :specialists
+end
+
+get '/specialists/add' do
+  erb :specialist_form
+end
+
+post '/specialists/add' do
   Specialist.create({first_name: params['first_name'], last_name: params['last_name'], phone: params['phone'], email: params['email']})
   redirect '/specialists'
 end
@@ -63,14 +86,20 @@ end
 patch '/specialist/:id' do
   special_id = params.fetch('id').to_i
   specialist = Specialist.find(special_id)
-  specialist.update({first_name: params.fetch('first_name', specialist.first_name)})
-  specialist.update({last_name: params.fetch('last_name', specialist.last_name)})
-  specialist.update({phone: params.fetch('phone', specialist.phone)})
-  specialist.update({email: params.fetch('email', specialist.email)})
-
-  # , last_name: params.fetch('last_name', specialist.last_name), phone: params.fetch('phone', specialist.phone), email: params.fetch('email', specialist.email)})
-
-  redirect '/specialist/#{special.id}'
+  first_name = params.fetch('first_name', specialist.first_name)
+  last_name = params.fetch('last_name', specialist.last_name)
+  phone = params.fetch('phone', specialist.phone)
+  email = params.fetch('email', specialist.email)
+  if first_name != ""
+    specialist.update(first_name: first_name)
+  if first_name != ""
+    specialist.update(last_name: last_name)
+  if first_name != ""
+    specialist.update(phone: phone)
+  if first_name != ""
+    specialist.update(email: email)
+  end
+  redirect "/specialist/#{special_id}"
 end
 
 get '/events/export/events.ics' do
@@ -103,36 +132,4 @@ get '/events/export/events.ics' do
     output.close
   end
   File.read File.dirname(__FILE__) + '/views/events.ics'
-end
-
-get '/specialists' do
-  @allspecialists = Specialist.all
-  @specialists = @allspecialists.order(:last_name)
-  erb :specialists
-end
-
-get '/specialists/add' do
-  erb :specialist_form
-end
-
-post '/specialists/add' do
-  Specialist.create({first_name: params.fetch('first_name'), last_name: params.fetch('last_name'), phone: params.fetch('phone', email: params.fetch('email'))})
-  redirect '/specialists'
-end
-
-delete '/specialist/:id' do
-  specialist = Specialist.find(params.fetch('id').to_i)
-  specialist.delete
-  redirect '/specialists'
-end
-
-patch '/specialist/:id' do
-  special_id = params.fetch('id').to_i
-  specialist = Special.find(special_id)
-  first_name = params.fetch.('new_first_name', specialist.first_name)
-  last_name = params.fetch.('new_last_name', specialist.last_name)
-  phone = params.fetch.('new_phone', specialist.phone)
-  email = params.fetch.('new_email', specialist.email)
-  specialist.update({first_name: 'new_first_name', last_name: 'new_last_name' phone: 'new_phone', email: 'new_email'})
-  redirect "/specialist/#{special_id}"
 end
