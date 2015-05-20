@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520162902) do
+ActiveRecord::Schema.define(version: 20150520223054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,9 +49,9 @@ ActiveRecord::Schema.define(version: 20150520162902) do
   end
 
   create_table "vacations", force: :cascade do |t|
-    t.date    "date"
-    t.integer "number_of_days"
     t.integer "specialist_id"
+    t.string  "start_date"
+    t.string  "end_date"
   end
 
   add_index "vacations", ["specialist_id"], name: "index_vacations_on_specialist_id", using: :btree
