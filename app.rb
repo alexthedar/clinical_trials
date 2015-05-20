@@ -84,24 +84,30 @@ get '/specialist/:id' do
   erb :specialist
 end
 
-patch '/specialist/:id' do
-  special_id = params.fetch('id').to_i
-  specialist = Specialist.find(special_id)
-  first_name = params.fetch('first_name', specialist.first_name)
-  last_name = params.fetch('last_name', specialist.last_name)
-  phone = params.fetch('phone', specialist.phone)
-  email = params.fetch('email', specialist.email)
-  if first_name != ""
-    specialist.update(first_name: first_name)
-  if first_name != ""
-    specialist.update(last_name: last_name)
-  if first_name != ""
-    specialist.update(phone: phone)
-  if first_name != ""
-    specialist.update(email: email)
+post '/specialist/:id' do
+  @specialist = Specialist.find(params.fetch('id'))
+  first_name = params.fetch('first_name')
+  last_name = params.fetch('last_name')
+  phone = params.fetch('phone')
+  email = params.fetch('email')
+
+  if first_name == ""
+    first_name = @specialist.first_name
   end
-  redirect "/specialist/#{special_id}"
+  if last_name == ""
+    last_name = @specialist.last_name
+  end
+  if phone == ""
+    phone = @specialist.phone
+  end
+  if email == ""
+    email = @specialist.email
+  end
+  @specialist.update({:first_name => first_name, :last_name => last_name, :phone => phone, :email => email})
+
+  redirect '/specialist/'.concat(@specialist.id().to_s())
 end
+
 
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new

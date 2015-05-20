@@ -4,7 +4,6 @@
 <p class="lead">e-mail: <%= @specialist.email %></p>
 
 <form id="form_id" action="/specialist/<%= @specialist.id %>" method="post">
-  <input type="hidden" name="_method" value="patch">
   <%= erb :specialist_partial %>
   <button name="submit" type="submit" class="btn btn-warning">Update</button>
 </form>
