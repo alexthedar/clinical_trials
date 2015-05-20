@@ -10,4 +10,33 @@ h1 {
 
 body {
   margin-bottom: 50px;
+  color: #0e4d8f
+}
+
+.navbar-inverse {
+  background-color: #0e4d8f;
+  border-color: #0e4d8f;
+  background-image: none;
+  background-repeat: no-repeat;
+  font-family: Helvetica;
+  filter: none;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #0376AD;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    color: #efefef;
+    background-color: #0376AD;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  color: #efefef;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #efefef;
 }
