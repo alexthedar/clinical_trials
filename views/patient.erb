@@ -1,16 +1,16 @@
 <h1><%= @patient.name%>'s information</h1>
 
-<p class="lead">Patient Name: <%= @patient.name %></p>
-<p class="lead">Patient Phone: <%= @patient.phone %></p>
-<p class="lead">Patient e-mail: <%= @patient.email %></p>
-<p class="lead">Patient Gender: <% if @patient.gender == 'm' %>Male<% else %>Female<% end %></p>
-<p class="lead">Patient Birthday: <%= @patient.birthday %></p>
-
-<form id="form_id" action="/patients/<%= @patient.id %>" method="post">
+<form action="/patients/<%= @patient.id %>" method="post">
   <input type="hidden" name="_method" value="patch">
   <%= erb :patient_partial %>
   <button name="submit" type="submit" class="btn btn-warning">Update</button>
 </form>
+<br>
+
+<form action="/patients/<%= @patient.id %>" method="post">
+  <%= erb :delete_partial %>
+</form>
+
 <br>
 <% if @patient.visits.any? %>
   <ul>

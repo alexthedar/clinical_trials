@@ -29,7 +29,6 @@ end
 
 get '/patients/:id' do
   @patient = Patient.find(params['id'])
-binding.pry
   erb :patient
 end
 
@@ -42,6 +41,12 @@ patch '/patients/:id' do
   patient.update(gender: params.fetch('gender'))
   patient.update(birthday: params.fetch('birthday'))
   redirect "/patients/#{patient.id}"
+end
+
+delete '/patients/:id' do
+  patient = Patient.find(params['id'])
+  patient.destroy
+  redirect to '/patients'
 end
 
 get '/specialists' do
