@@ -25,13 +25,15 @@ end
 
 get '/patients/:id' do
   @patient = Patient.find(params['id'])
+binding.pry
   erb :patient
 end
 
 patch '/patients/:id' do
-  patient = Patient.find(params['id'])
-  patient.update(name: params.fetch('name', patient.name), phone: params.fetch('phone', patient.phone), email: params.fetch('email', patient.email), gender: params.fetch('gender', patient.gender), birthday: params.fetch('birthday', patient.birthday))
-  redirect "/patients/#{patient.id}"
+  @patient = Patient.find(params['id'])
+  @patient.update(name: params.fetch('name', @patient.name), phone: params.fetch('phone', @patient.phone), email: params.fetch('email', @patient.email), gender: params.fetch('gender', @patient.gender), birthday: params.fetch('birthday', @patient.birthday))
+# binding.pry
+  redirect to "/patients/#{@patient.id}"
 end
 
 get '/events/export/events.ics' do
@@ -73,7 +75,7 @@ get '/specialists' do
   erb :specialists
 end
 
-get 'specialists/add' do
+get '/specialists/add' do
   erb :specialist_form
 end
 
@@ -96,4 +98,55 @@ patch '/specialist/:id' do
   email = params.fetch.('new_email', specialist.email)
   specialist.update(name: 'new_name', phone: 'new_phone', email: 'new_email')
   redirect '/specialists'
+end
+
+get '/trials' do
+  @alltrials = Trial.all
+  @trials = @alltrials.order(:name)
+  erb :trials
+end
+
+get '/trials/add' do
+  erb :trial_form
+end
+
+post '/trials' do
+  Trial.create(company: params['company'], name: params['name'], number_of_visits: params['visits'], description: params['description'])
+  redirect '/trials'
+end
+
+get '/trials/:id' do
+  @trial = Trial.find(params.fetch('id').to_i)
+  erb :trial
+end
+
+post '/trials/:id' do
+  @trial = Trial.find(params.fetch('id'))
+  company = params.fetch('company')
+  name = params.fetch('name')
+  visits = params.fetch('visits')
+  description = params.fetch('description')
+
+  if company == ""
+    company = @trial.company
+  end
+  if name == ""
+    name = @trial.name
+  end
+  if visits == ""
+    visits = @trial.number_of_visits
+  end
+  if description == ""
+    description = @trial.description
+  end
+  @trial.update({:company => company, :name => name, :number_of_visits => visits, :description => description})
+
+  redirect '/trials/'.concat(@trial.id().to_s())
+end
+
+delete '/trials/:id' do
+  trial_id = params.fetch('id').to_i
+  trial = Trial.find(trial_id)
+  trial.delete
+  redirect '/trials'
 end
