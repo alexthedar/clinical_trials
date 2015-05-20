@@ -29,7 +29,6 @@ end
 
 get '/patients/:id' do
   @patient = Patient.find(params['id'])
-binding.pry
   erb :patient
 end
 
@@ -44,9 +43,15 @@ patch '/patients/:id' do
   redirect "/patients/#{patient.id}"
 end
 
+delete '/patients/:id' do
+  patient = Patient.find(params['id'])
+  patient.destroy
+  redirect to '/patients'
+end
+
 get '/specialists' do
   @allspecialists = Specialist.all
-  @specialists = @allspecialists.order(:last_name)
+  @specialists = @allspecialists.order(last_name: :asc)
   erb :specialists
 end
 
@@ -65,31 +70,9 @@ delete '/specialist/:id' do
   redirect '/specialists'
 end
 
-
-
-get '/specialists' do
-  @allspecialists = Specialist.all
-  @specialists = @allspecialists.order(:last_name)
-  erb :specialists
-end
-
-get '/specialists/add' do
-  erb :specialist_form
-end
-
-post '/specialists/add' do
-  Specialist.create({first_name: params['first_name'], last_name: params['last_name'], phone: params['phone'], email: params['email']})
-  redirect '/specialists'
-end
-
-delete '/specialist/:id' do
-  specialist = Specialist.find(params.fetch('id').to_i)
-  specialist.delete
-  redirect '/specialists'
-end
-
 get '/specialist/:id' do
   @specialist = Specialist.find(params['id'])
+  @vacations = @specialist.vacations
   erb :specialist
 end
 
@@ -115,6 +98,12 @@ post '/specialist/:id' do
   @specialist.update({:first_name => first_name, :last_name => last_name, :phone => phone, :email => email})
 
   redirect '/specialist/'.concat(@specialist.id().to_s())
+end
+
+post '/vacation/add/:id' do
+  @specialist = Specialist.find(params.fetch('id'))
+  @vacations = @specialist.vacations
+  erb(:vacation_form)
 end
 
 
