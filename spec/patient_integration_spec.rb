@@ -7,19 +7,19 @@ describe 'the patient route', type: :feature do
   end
 
   it 'will return a list of patients' do
-    patient = Patient.create(first_name: 'John', last_name: 'connor')
+    patient = Patient.create(first_name: 'John', last_name: 'connor', phone: '(404) 281-3895')
     visit '/patients'
     expect(page).to have_content 'Connor, John'
   end
 
   it 'will show a page with a specific patients information' do
-    patient = Patient.create(first_name: 'John', last_name: 'connor')
+    patient = Patient.create(first_name: 'John', last_name: 'connor', phone: '(404) 281-3895')
     visit "/patients/#{patient.id}"
     expect(page).to have_content 'Patient Name: Connor, John'
   end
 
   it 'will update a patient\'s information.' do
-    patient = Patient.create(first_name: 'John', last_name: 'connor')
+    patient = Patient.create(first_name: 'John', last_name: 'connor', phone: '(404) 281-3895')
     visit "/patients/#{patient.id}"
     fill_in :first_name, with: 'Sarah'
     fill_in :last_name, with: 'Ludwig'
