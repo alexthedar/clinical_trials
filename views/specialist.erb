@@ -2,14 +2,16 @@
 <div class="container">
   <div class="row">
     <div style = "border-right: 1px solid #ccc" class="col-md-8">
-      <p class="lead">Name: <%= @specialist.name %></p>
-      <p class="lead">Phone: <%= @specialist.phone %></p>
-      <p class="lead">e-mail: <%= @specialist.email %></p>
+      <form action="/specialist/<%= @specialist.id %>" method="post">
+        <input type="hidden" name="_method" value="patch">
+        <%= erb :specialist_partial %>
+        <button name="submit" type="submit" class="btn btn-warning">Update</button>
+      </form>
     </div>
     <div class="col-md-4">
       <p class = "lead">Days Unavailable</p>
         <% if @vacations.any?%>
-        
+
 
         <% end %>
       <form id="form_id" action="/vacation/add/<%= @specialist.id %>" method="post">
@@ -17,16 +19,6 @@
       </form>
     </div>
   </div>
-
-
-
-
-<br>
-<p class="lead">Add </p>
-<form id="form_id" action="/specialist/<%= @specialist.id %>" method="post">
-  <%= erb :specialist_partial %>
-  <button name="submit" type="submit" class="btn btn-warning">Update</button>
-</form>
 <br>
 
 <% if @specialist.visits.any? %>

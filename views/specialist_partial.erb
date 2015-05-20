@@ -1,11 +1,10 @@
 <div class="form-group">
   <label for="first_name">First Name</label>
-  <input class="form-control" type="text" name="first_name" id="first_name" placeholder="John" autofocus >
+  <input class="form-control" type="text" name="first_name" id="first_name" placeholder="John" value="<%= @specialist.first_name %>" autofocus >
   <label for="last_name">Last Name</label>
-
-  <input class="form-control" type="text" name="last_name" id="last_name" placeholder="Digweed" autofocus >
+  <input class="form-control" type="text" name="last_name" id="last_name" placeholder="Digweed" value="<%= @specialist.last_name %>">
   <label for="phone">Phone Number</label>
-  <input class="form-control" type="text" name="phone" id="phone" placeholder="987-654-3210" >
+  <input class="form-control" type="text" name="phone" id="phone" placeholder="987-654-3210" value="<%= @specialist.phone %>">
   <label for="email">E-mail</label>
-  <input class="form-control" type="text" name="email" id="email" placeholder="john@johndigweed.com" >
+  <input class="form-control" type="text" name="email" id="email" placeholder="john@johndigweed.com" value="<%= @specialist.email %>">
 </div>

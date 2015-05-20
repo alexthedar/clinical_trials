@@ -5,6 +5,7 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 before do
   @patient = Patient.new
+  @specialist = Specialist.new
 end
 
 get '/' do
@@ -60,7 +61,7 @@ get '/specialists/add' do
 end
 
 post '/specialists/add' do
-  Specialist.create({first_name: params.fetch('first_name'), last_name: params.fetch('last_name'), phone: params.fetch('phone', email: params.fetch('email'))})
+  Specialist.create(first_name: params['first_name'],last_name: params['last_name'], phone: params['phone'], email: params['email'])
   redirect '/specialists'
 end
 
