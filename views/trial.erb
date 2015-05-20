@@ -89,12 +89,12 @@
 </div>
 
 
-<% if @trial.schedule.nil? %>
+<% if @trial.schedules.any? %>
 
-<p class="lead">No schedule has been created create schedule <a href="/trials/<%= @trial.id%>/schedule/add"> here</a></p>
+<a href="/trials/<%= @trial.id%>/schedule">View schedule </a>
 
 <% else %>
 
-<a href="/trials/<%= @trial.id%>/schedule">View schedule </a>
+<p class="lead">No schedule has been created create schedule <a href="/trials/<%= @trial.id%>/schedule/add"> here</a></p>
 
 <% end %>

@@ -1,21 +1,49 @@
 <h1>Welcome to the patients page!</h1>
 
 <% if @patients.any? %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th class="col-md-1">Edit</th>
+        <th class="col-md-2">Name</th>
+        <th class="col-md-2">Phone</th>
+        <th class="col-md-2">Email</th>
+        <th class="col-md-4">Birthday</th>
+        <th class="col-md-1">Delete</th>
+      </tr>
+    </thead>
 
-<p class="lead"> Here are the following patients available for trial studies:
-  <ul>
-    <% @patients.each do |patient| %>
-    <li><a href="/patients/<%= patient.id%>"><%= patient.name %> </a></li>
-    <% end %>
-  </ul>
+    <tbody>
+      <tr>
+          <td>
+            <a href="/patients/add" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
+          </td>
+          <td>Add New Patient Here</td>
 
-</p>
-
-
-
-
+          </td>
+      </tr>
+    </tbody>
+  <% @patients.each do |patient| %>
+    <tbody>
+      <tr>
+          <td>
+            <a href="/patients/<%= patient.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
+          </td>
+          <td><%= patient.name %></td>
+          <td><%= patient.phone %></td>
+          <td><%= patient.email %></td>
+          <td><%= patient.birthday %> </td>
+          <td>
+            <form action="/patients/<%= patient.id %>" method="post">
+              <input name="_method" type="hidden" value ="delete">
+                <button id="delete_patient" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+            </form>
+          </td>
+      </tr>
+    </tbody>
+  <% end %>
+  </table>
 <% else %>
-
 
 <p class="lead"> No patients have been added yet add patients <a href="/patients/add">here</a>.
 
