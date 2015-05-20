@@ -156,6 +156,8 @@ end
 
 get '/trials/:id' do
   @trial = Trial.find(params.fetch('id').to_i)
+  @patients = Patient.all
+  @enrolled_patients = @trial.patients
   erb :trial
 end
 
@@ -188,4 +190,13 @@ delete '/trials/:id' do
   trial = Trial.find(trial_id)
   trial.delete
   redirect '/trials'
+end
+
+post '/trials/:id/add/patients' do
+  trial = Trial.find(params['id'])
+  patients = Patient.find(params['patient_ids'])
+  patients.each do |patient|
+    trial.patients.push(patient)
+  end
+  redirect to "/trials/#{trial.id}"
 end
