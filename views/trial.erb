@@ -1,0 +1,13 @@
+<h1><%= @trial.name%> information</h1>
+
+<p class="lead"> Company: <%= @trial.company %></p>
+<p class="lead"> Trial Name: <%= @trial.name %></p>
+<p class="lead"> Number of Visits: <%= @trial.number_of_visits %></p>
+<p class="lead"> Description: <%= @trial.description %></p>
+
+<form id="form_id" action="/trials/<%= @trial.id %>" method="post">
+  <!-- <input type="hidden" name="_method" value="patch"> -->
+  <%= erb :trial_partial %>
+  <button name="submit" type="submit" class="btn btn-warning">Update</button>
+</form>
+<br>
