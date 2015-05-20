@@ -1,8 +1,7 @@
 <h1>Trials</h1>
 
 <% if @trials.any? %>
-  <% @trials.uniq.each do |trial| %>
-    <table class="table table-hover">
+<table class="table table-hover">
       <thead>
         <tr>
           <th>View</th>
@@ -11,6 +10,7 @@
           <th>Delete</th>
         </tr>
       </thead>
+  <% @trials.uniq.each do |trial| %>
       <tbody>
         <tr>
             <td>
@@ -27,8 +27,8 @@
             </td>
         </tr>
       </tbody>
-    </table>
   <% end %>
+  </table>
 <% else %>
   <p class="lead"> No trials have been added yet. Please add trials <a href="/trials/add">here</a>.
 <% end %>
