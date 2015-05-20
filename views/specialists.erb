@@ -1,49 +1,37 @@
 <h1>Specialists</h1>
 
 <% if @specialists.any? %>
-  <% @specialist.uniq.each do |special| %>
-    <li><a href="/specialist/<%= special.id %>"><%= special.name %></a>
-      <span class="btn-group inline">
-            <form action="/specialist/<%= special.id %>" method="post">
-              <input name="_method" type="hidden" value ="delete">
-              <button id="delete_specialist" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove">
-              </button>
-            </form>
-          </span>
-        <p></p>
-    </li>
+  <% @specialists.each do |special| %>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Edit</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>
+              <a href="/specialist/<%= special.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
+            </td>
+            <td><%= special.first_name %></td>
+            <td><%= special.last_name %></td>
+            <td><%= special.phone %></td>
+            <td><%= special.email %></td>
+            <td>
+              <form action="/specialist/<%= special.id %>" method="post">
+                <input name="_method" type="hidden" value ="delete">
+                  <button id="delete_specialist" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+              </form>
+            </td>
+        </tr>
+      </tbody>
+    </table>
   <% end %>
+<% else %>
+  <p class="lead"> No specialists have been added yet. Please add specialists<a href="/specialists/add">here</a>.  
 <% end %>
-
-<div class="col-md-6">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>

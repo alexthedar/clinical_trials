@@ -69,7 +69,7 @@ end
 
 get '/specialists' do
   @allspecialists = Specialist.all
-  @specialists = @allspecialists.order(:name)
+  @specialists = @allspecialists.order(:last_name)
   erb :specialists
 end
 
@@ -78,7 +78,7 @@ get '/specialists/add' do
 end
 
 post '/specialists/add' do
-  Specialist.create({name: params.fetch('name'), phone: params.fetch('phone', email: params.fetch('email'))})
+  Specialist.create({first_name: params.fetch('first_name'), last_name: params.fetch('last_name'), phone: params.fetch('phone', email: params.fetch('email'))})
   redirect '/specialists'
 end
 
@@ -88,12 +88,13 @@ delete '/specialist/:id' do
   redirect '/specialists'
 end
 
-patch '/specialist/:id' do
-  special_id = params.fetch('id').to_i
-  specialist = Special.find(special_id)
-  name = params.fetch.('new_name', specialist.name)
-  phone = params.fetch.('new_phone', specialist.phone)
-  email = params.fetch.('new_email', specialist.email)
-  specialist.update(name: 'new_name', phone: 'new_phone', email: 'new_email')
-  redirect '/specialists'
-end
+# patch '/specialist/:id' do
+#   special_id = params.fetch('id').to_i
+#   specialist = Special.find(special_id)
+#   first_name = params.fetch.('new_first_name', specialist.first_name)
+#   last_name = params.fetch.('new_last_name', specialist.last_name)
+#   phone = params.fetch.('new_phone', specialist.phone)
+#   email = params.fetch.('new_email', specialist.email)
+#   specialist.update({first_name: 'new_first_name', last_name: 'new_last_name' phone: 'new_phone', email: 'new_email'})
+#   redirect '/specialists'
+# end
