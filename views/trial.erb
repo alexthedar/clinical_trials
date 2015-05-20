@@ -35,6 +35,42 @@
   </div>
 </div>
 
+<div class-"row">
+  <div class="col-md-6">
+    <% if @assigned_specialists.any? %>
+      <p class='lead'> Current specialists for this trial:</p>
+        <ul>
+          <% @assigned_specialists.each() do |specialist| %>
+            <li><a href="/specialists/<%= specialist.id%>"> <%= specialist.name %></a></li>
+          <% end %>
+        </ul>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <% if @specialists.any? %>
+      <p class="lead"> Add a new specialist to the trial here </p>
+      <form action="/trials/<%= @trial.id %>/add/specialists" method="post">
+        <% @specialists.each do |specialist| %>
+          <% unless @trial.specialists.include?(specialist) %>
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="specialist_ids[]" value="<%= specialist.id %>"> <%= specialist.name %>
+                </label>
+              </div>
+          </div>
+          <% end %>
+        <% end %>
+        <div class="form-group">
+          <button name="add_specialists" type='submit' class="btn btn-success">Add Specialists</button>
+        </div>
+      </form>
+    <% else %>
+      <p>It appears no specialists have been added yet feel free to <a href="/patients">add a specialist</a>.</p>
+    <% end %>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-4">
     <p class="lead">Trial Information:</p>
@@ -45,9 +81,20 @@
   </div>
   <div class="col-md-4">
     <p class="lead">Update Trial Information:</p>
-    <form id="form_id" action="/trials/<%= @trial.id %>" method="post">
+    <form id="form_id" action="/trials/<%= @trial.id %>/update" method="post">
       <%= erb :trial_partial %>
       <button name="submit" type="submit" class="btn btn-warning">Update</button>
     </form>
   </div>
 </div>
+
+
+<% if @trial.schedules.any? %>
+
+<a href="/trials/<%= @trial.id%>/schedule">View schedule </a>
+
+<% else %>
+
+<p class="lead">No schedule has been created create schedule <a href="/trials/<%= @trial.id%>/schedule/add"> here</a></p>
+
+<% end %>

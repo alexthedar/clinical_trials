@@ -65,19 +65,19 @@ post '/specialists/add' do
   redirect '/specialists'
 end
 
-delete '/specialist/:id' do
+delete '/specialists/:id' do
   specialist = Specialist.find(params.fetch('id').to_i)
   specialist.delete
   redirect '/specialists'
 end
 
-get '/specialist/:id' do
+get '/specialists/:id' do
   @specialist = Specialist.find(params['id'])
   @vacations = @specialist.vacations
   erb :specialist
 end
 
-post '/specialist/:id' do
+post '/specialists/:id' do
   @specialist = Specialist.find(params.fetch('id'))
   first_name = params.fetch('first_name')
   last_name = params.fetch('last_name')
@@ -107,39 +107,6 @@ post '/vacation/add/:id' do
   erb(:vacation_form)
 end
 
-
-get '/events/export/events.ics' do
-  cal = Icalendar::Calendar.new
-  cal.event do |e|
-    e.dtstart     = Icalendar::Values::Date.new('20050428')
-    e.dtend       = Icalendar::Values::Date.new('20050429')
-    e.summary     = "Meeting with the man."
-    e.description = "Have a long lunch meeting and decide nothing..."
-    e.ip_class    = "PRIVATE"
-  end
-  cal.event do |e|
-    e.dtstart     = Icalendar::Values::Date.new('20150428')
-    e.dtend       = Icalendar::Values::Date.new('20150429')
-    e.summary     = "Meeting with the other man."
-    e.description = "Have a short lunch meeting and decide nothing..."
-    e.ip_class    = "PRIVATE"
-  end
-  cal.event do |e|
-    e.dtstart     = Icalendar::Values::Date.new('20150428')
-    e.dtend       = Icalendar::Values::Date.new('20150429')
-    e.summary     = "Fix Calendar."
-    e.description = "Have a short lunch meeting and decide nothing..."
-    e.ip_class    = "PRIVATE"
-  end
-  cal.publish
-  Dir[File.dirname(__FILE__) + '/views/events.ics'].each do |file|
-    output = File.open( file, "w" )
-    output << cal.to_ical
-    output.close
-  end
-  File.read File.dirname(__FILE__) + '/views/events.ics'
-end
-
 get '/trials' do
   @alltrials = Trial.all
   @trials = @alltrials.order(:name)
@@ -159,10 +126,13 @@ get '/trials/:id' do
   @trial = Trial.find(params.fetch('id').to_i)
   @patients = Patient.all
   @enrolled_patients = @trial.patients
+  @specialists = Specialist.all
+  @assigned_specialists = @trial.specialists
   erb :trial
 end
 
-post '/trials/:id' do
+post '/trials/:id/update' do
+  binding.pry
   @trial = Trial.find(params.fetch('id'))
   company = params.fetch('company')
   name = params.fetch('name')
@@ -200,4 +170,67 @@ post '/trials/:id/add/patients' do
     trial.patients.push(patient)
   end
   redirect to "/trials/#{trial.id}"
+end
+
+post '/trials/:id/add/specialists' do
+  trial = Trial.find(params['id'])
+  specialists = Specialist.find(params['specialist_ids'])
+  specialists.each do |specialist|
+    trial.specialists.push(specialist)
+  end
+  redirect to "/trials/#{trial.id}"
+end
+
+get '/trials/:id/schedule' do
+  @trial = Trial.find(params['id'])
+  @schedule = @trial.schedules
+
+  erb :schedule
+end
+
+get '/trials/:id/schedule/add' do
+  @trial = Trial.find(params['id'])
+  @schedule = @trial.schedules
+  erb :schedule_form
+end
+
+patch '/trials/:id/schedule/add' do
+  @trial = Trial.find(params['id'])
+  schedule = Schedule.create(description: params['description'], visit_number: params['visit_number'], days_to_next: params['days_to_next'], trial_id: @trial.id)
+  @schedule = @trial.schedules
+  redirect to "/trials/#{@trial.id}/schedule/add"
+end
+
+
+
+get '/events/export/events.ics' do
+  cal = Icalendar::Calendar.new
+  cal.event do |e|
+    e.dtstart     = Icalendar::Values::Date.new('20050428')
+    e.dtend       = Icalendar::Values::Date.new('20050429')
+    e.summary     = "Meeting with the man."
+    e.description = "Have a long lunch meeting and decide nothing..."
+    e.ip_class    = "PRIVATE"
+  end
+  cal.event do |e|
+    e.dtstart     = Icalendar::Values::Date.new('20150428')
+    e.dtend       = Icalendar::Values::Date.new('20150429')
+    e.summary     = "Meeting with the other man."
+    e.description = "Have a short lunch meeting and decide nothing..."
+    e.ip_class    = "PRIVATE"
+  end
+  cal.event do |e|
+    e.dtstart     = Icalendar::Values::Date.new('20150428')
+    e.dtend       = Icalendar::Values::Date.new('20150429')
+    e.summary     = "Fix Calendar."
+    e.description = "Have a short lunch meeting and decide nothing..."
+    e.ip_class    = "PRIVATE"
+  end
+  cal.publish
+  Dir[File.dirname(__FILE__) + '/views/events.ics'].each do |file|
+    output = File.open( file, "w" )
+    output << cal.to_ical
+    output.close
+  end
+  File.read File.dirname(__FILE__) + '/views/events.ics'
 end
