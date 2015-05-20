@@ -4,13 +4,12 @@ Bundler.require :default
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 get '/' do
-
-  erb(:index)
+  erb :index
 end
 
 get '/patients' do
   @patients = Patient.all
-  erb(:patients)
+  erb :patients
 end
 
 post '/patients' do
@@ -20,19 +19,19 @@ end
 
 get '/patients/add' do
 
-  erb(:patient_form)
+  erb :patient_form
 end
 
 
 get '/patients/:id' do
   @patient = Patient.find(params['id'])
-  erb(:patient)
+  erb :patient
 end
 
 patch '/patients/:id' do
   patient = Patient.find(params['id'])
   patient.update(name: params.fetch('name', patient.name), phone: params.fetch('phone', patient.phone), email: params.fetch('email', patient.email), gender: params.fetch('gender', patient.gender), birthday: params.fetch('birthday', patient.birthday))
-  redirect("/patients/#{patient.id}")
+  redirect "/patients/#{patient.id}"
 end
 
 get '/events/export/events.ics' do
@@ -71,18 +70,22 @@ end
 get '/specialists' do
   @allspecialists = Specialist.all
   @specialists = @allspecialists.order(:name)
-  erb(:specialists)
+  erb :specialists
 end
 
-post '/add_specialist' do
+get 'specialists/add' do
+  erb :specialist_form
+end
+
+post '/specialists/add' do
   Specialist.create({name: params.fetch('name'), phone: params.fetch('phone', email: params.fetch('email'))})
-  redirect('/specialists')
+  redirect '/specialists'
 end
 
 delete '/specialist/:id' do
   specialist = Specialist.find(params.fetch('id').to_i)
   specialist.delete
-  redirect('/specialists')
+  redirect '/specialists'
 end
 
 patch '/specialist/:id' do
@@ -92,5 +95,5 @@ patch '/specialist/:id' do
   phone = params.fetch.('new_phone', specialist.phone)
   email = params.fetch.('new_email', specialist.email)
   specialist.update(name: 'new_name', phone: 'new_phone', email: 'new_email')
-  redirect('/specialists')
+  redirect '/specialists'
 end
