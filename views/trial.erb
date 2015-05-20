@@ -87,3 +87,14 @@
     </form>
   </div>
 </div>
+
+
+<% if @trial.schedule.nil? %>
+
+<p class="lead">No schedule has been created create schedule <a href="/trials/<%= @trial.id%>/schedule/add"> here</a></p>
+
+<% else %>
+
+<a href="/trials/<%= @trial.id%>/schedule">View schedule </a>
+
+<% end %>
