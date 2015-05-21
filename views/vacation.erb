@@ -1,42 +1,60 @@
 <div class="container">
 
-<h1><%= @specialist.name %> Days Unavailable</h1>
-<!-- # <% if @vacations.any? %> -->
-  <table class="table table-hover table-responsive table-condensed">
-    <thead>
-      <tr>
-        <th class="col-md-1">Start</th>
-        <th class="col-md-3">End</th>
-        <th class="col-md-3">Update</th>
-        <th class="col-md-1">Delete</th>
-      </tr>
-    </thead>
-  <% @vacations.each do |vacay| %>
-    <tbody>
-      <tr>
+  <h1><%= @specialist.name %> Days Unavailable</h1>
+  <p class="lead"> Current Unavailble Date(s)</p>
+    <table class="table table-hover table-responsive table-condensed">
+      <thead>
+        <tr>
+          <th class="col-md-3 ">Start</th>
+          <th class="col-md-3 ">End</th>
+          <th class="col-md-1 text-center">Delete</th>
+        </tr>
+      </thead>
+    <% if @vacations.any? %>
+    <% @vacations.each do |vacay| %>
+        <tbody>
+          <tr>
+            <td>
+              <form action="/vacation/<%= vacay.id %>" method="post">
+                <input type="hidden" name="_method" value="patch">
+                <input type="hidden" name="specialist_id" value="<%= @specialist.id %>">
+                  <button name="submit" type="submit" class="btn btn-warning">Update</button>
+                </form>
+            </td>
+              <td>
+                <input class="form-control" type="date" name="start_date" id="start_date" value="<%= vacay.start_date %>">
+              </td>
+              <td>
+                <input class="form-control" type="date" name="end_date" id="end_date" value="<%= vacay.end_date %>">
+              </td>
+              <td class="text-center">
+                <form action="/vacation/<%= vacay.id %>" method="post">
+                  <%= erb :sm_del_partial %>
+                </form>
+              </td>
+          </tr>
+        </tbody>
+    </table>
+    <% end %>
+    <% end %>
+  <br>
+  <p class="lead"> Add Unavailable Date(s)</p>
+  <form>
+  <form class="form-inline">
+    <form action="/vacation/add/<%= @specialist.id %>" method="post">
         <div class="form-group">
-          <td>
-            <input class="form-control" type="text" name="first_name" id="first_name" value="<%= vacay.start_date %>">
-          </td>
-          <td>
-            <input class="form-control" type="text" name="last_name" id="last_name" value="<%= vacay.last_name %>">
-          </td>
-          <td>
-            <form action="/vacation/<%= vacation.id %>" method="post">
-              <input name="_method" type="hidden" value ="patch">
-                <button id="delete_specialist" type="submit" class="btn btn-xs btn-success glyphicon glyphicon-plus"></button>
-          </td>
-          <td>
-            <form action="/vacation/<%= vacation.id %>" method="post">
-              <%= erb :sm_del_partial %>
-            </form>
-          </td>
+          <label for="start_date">Start Date</label>
+          <input class="form-control" type="date" name="start_date" id="start_date">
         </div>
-      </tr>
-    </tbody>
-  <% end %>
-  </table>
-<!-- # <% else %>
-#   <p class="lead"> <%= @specialist.name %> has no unavailable days yet. Please add <a href="/vacation/add/<%= @specialist.id %>">here</a>.
-# <% end %> -->
+        <div class="form-group">
+          <label for="end_date">End Date</label>
+          <input class="form-control" type="date" name="end_date" id="end_date">
+        </div>
+          <button name="submit" type="submit" class="btn btn-success glyphicon glyphicon-plus"></button>
+    </form>
+  </form>
+
+</form>
+
+  <br>
 </div>
