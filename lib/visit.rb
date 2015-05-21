@@ -4,4 +4,12 @@ class Visit < ActiveRecord::Base
   belongs_to :patient
   belongs_to :specialist
   belongs_to :schedule
+
+  def self.scheduled_dates(start_date, end_date)
+    dates = []
+    scheduled_visits(start_date, end_date).each do |visit|
+      dates << visit.appt_date
+    end
+    dates
+  end
 end
