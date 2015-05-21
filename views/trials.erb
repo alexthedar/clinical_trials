@@ -10,16 +10,13 @@
           <th>Delete</th>
         </tr>
       </thead>
-  <% @trials.uniq.each do |trial| %>
       <tbody>
-        <tr>
-            <td>
-              <a href="/trials/add" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
-            </td>
-            <td>Add New Trial Here</td>
-            </td>
+        <tr class="info">
+          <td><a href="/trials/add" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a></td>
+          <td>Add New Trial Here</td><td></td><td></td>
         </tr>
       </tbody>
+  <% @trials.uniq.each do |trial| %>
       <tbody>
         <tr>
             <td>

@@ -186,6 +186,36 @@ delete '/trials/:id' do
   redirect '/trials'
 end
 
+post '/trials/:id/add/patients' do
+  trial = Trial.find(params['id'])
+  patients = Patient.find(params['patient_ids'])
+  patients.each do |patient|
+    trial.patients.push(patient)
+  end
+  redirect to "/trials/#{trial.id}"
+end
+
+post '/trials/:id/add/specialists' do
+  trial = Trial.find(params['id'])
+  specialists = Specialist.find(params['specialist_ids'])
+  specialists.each do |specialist|
+    trial.specialists.push(specialist)
+  end
+  redirect to "/trials/#{trial.id}"
+end
+
+get '/trials/:id/schedule/add' do
+  @trial = Trial.find(params['id'])
+  @schedule = @trial.schedules
+  erb :schedule_form
+end
+
+patch '/trials/:id/schedule/add' do
+  @trial = Trial.find(params['id'])
+  schedule = Schedule.create(description: params['description'], visit_number: params['visit_number'], days_to_next: params['days_to_next'], trial_id: @trial.id)
+  @schedule = @trial.schedules
+  redirect to "/trials/#{@trial.id}/schedule/add"
+end
 
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
