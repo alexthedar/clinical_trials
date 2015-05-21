@@ -14,39 +14,31 @@
     </thead>
 
     <tbody>
-      <tr>
-          <td>
-            <a href="/patients/add" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
-          </td>
-          <td>Add New Patient Here</td>
-
-          </td>
+      <tr class="info">
+        <td><a href="/patients/add" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a></td>
+        <td>Add New Patient Here</td><td></td><td></td><td></td><td></td>
       </tr>
     </tbody>
   <% @patients.each do |patient| %>
     <tbody>
       <tr>
-          <td>
-            <a href="/patients/<%= patient.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a>
-          </td>
-          <td><%= patient.name %></td>
-          <td><%= patient.phone %></td>
-          <td><%= patient.email %></td>
-          <td><%= patient.birthday %> </td>
-          <td>
-            <form action="/patients/<%= patient.id %>" method="post">
-              <input name="_method" type="hidden" value ="delete">
-                <button id="delete_patient" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
-            </form>
-          </td>
+        <td><a href="/patients/<%= patient.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a></td>
+        <td><%= patient.name %></td>
+        <td><%= patient.phone %></td>
+        <td><%= patient.email %></td>
+        <td><%= patient.birthday %> </td>
+        <td>
+          <form action="/patients/<%= patient.id %>" method="post">
+            <input name="_method" type="hidden" value ="delete">
+              <button id="delete_patient" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+          </form>
+        </td>
       </tr>
     </tbody>
   <% end %>
   </table>
 <% else %>
-
-<p class="lead"> No patients have been added yet add patients <a href="/patients/add">here</a>.
-
-</p>
-
+  <div class="col-md-6 col-md-offset-3 text-center">
+    <p class="lead"> No patients have been added yet add patients <a href="/patients/add" class="btn btn-primary" role="button">here</a>.</p>
+  </div>
 <% end %>
