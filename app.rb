@@ -229,6 +229,10 @@ get '/trials/:trial_id/patient/:patient_id/schedule' do
   erb :patient_schedule
 end
 
+get '/trial_information_test' do
+  erb :trial_information_test
+end
+
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
   cal.event do |e|
