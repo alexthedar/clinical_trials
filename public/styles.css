@@ -30,7 +30,7 @@ body {
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
     color: #efefef;
-    background-color: #0376AD;
+    background-color: #0e4d8f;
 }
 
 .navbar-inverse .navbar-nav>li>a {
@@ -39,4 +39,25 @@ body {
 
 .navbar-inverse .navbar-brand {
   color: #efefef;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: #eea236;
+  border-color: #eea236;
+}
+
+.btn-info {
+  background-color: #4169E1;
+}
+
+.btn-info:hover {
+  background-color: #4F74E4;
+  border-color: #4169E1;
 }
