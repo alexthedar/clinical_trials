@@ -16,10 +16,12 @@
           <% @vacations.each do |vacay| %>
           <tr>
             <td class="text-center">
-              <a href = "/vacation/<%= @specialist.id %>">
+              <form action="/vacation/edit/<%= @specialist.id %>" method="post">
+                <input name="_method" type="hidden" value ="patch">
                 <input name="vacay_id" type="hidden" value ="<%= vacay.id %>">
-                  <span class="btn btn-xs btn-warning glyphicon glyphicon-plus"></span>
+                  <button id="edit_vacation" type="submit" class="btn btn-xs btn-warning glyphicon glyphicon-remove"></button>
               </form>
+
             </td>
 
               <td>
@@ -30,8 +32,9 @@
               </td>
 
               <td class="text-center">
-                <form action="/vacation/<%= vacay.id %>" method="post">
+                <form action="/vacation/<%= @specialist.id %>" method="post">
                   <input name="_method" type="hidden" value ="delete">
+                  <input name="vacay_id" type="hidden" value ="<%= vacay.id %>">
                     <button id="delete_vacation" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
                 </form>
               </td>

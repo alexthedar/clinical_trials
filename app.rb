@@ -87,6 +87,13 @@ patch '/specialist/:id' do
   redirect "/specialist/#{specialist.id}"
 end
 
+delete '/vacation/delete/:id' do
+  @specialist = Specialist.find(params.fetch('specialist_id').to_i)
+  vacation = Vacation.find(params.fetch('id').to_i)
+  vacation.destroy
+  redirect "/specialists/".concat(@specialist.id().to_s())
+end
+
 get '/vacation/:id' do
   @specialist = Specialist.find(params.fetch('id'))
   @vacations = @specialist.vacations
@@ -94,21 +101,23 @@ get '/vacation/:id' do
 end
 
 post '/vacation/add/:id' do
-  @specialist = Specialist.find(params.fetch('specialist_id').to_i)
-  new_vacation = Vacation.create({start_date: params['start_date'], end_date: ['end_date'], specialist_id:['id'] })
+  @specialist = Specialist.find(params.fetch('id').to_i)
+  new_vacation = Vacation.create({start_date: params['start_date'], end_date: params['end_date'], specialist_id:['id'] })
   @specialist.vacations.push(new_vacation)
   redirect "/vacation/#{@specialist.id}"
 end
 
 delete '/vacation/:id' do
-  @specialist = Specialist.find(params.fetch('id'))
-  vacation = Vacation.find(params.fetch('vacay_id'))
+  @specialist = Specialist.find(params.fetch('id').to_i)
+  vacation = Vacation.find(params.fetch('vacay_id').to_i)
   vacation.delete
   redirect "/vacation/".concat(@specialist.id().to_s())
 end
 
-post '/vacation/:id' do
+patch '/vacation/edit/:id' do
   @specialist = Specialist.find(params.fetch('id').to_i)
+  binding.pry
+
   vacation = Vacation.find(params['vacay_id'])
   start_date = params.fetch('start_date')
   end_date = params.fecth('end_date')

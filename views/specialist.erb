@@ -25,9 +25,10 @@
                   <td><%= vacay.start_date %></td>
                   <td><%= vacay.end_date %></td>
                   <td>
-                    <form action="/vacation/<%= vacay.id %>" method="post">
+                    <form action="/vacation/delete/<%= vacay.id %>" method="post">
                       <input name="_method" type="hidden" value ="delete">
-                        <button id="delete_specialist" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+                      <input name="specialist_id" type="hidden" value ="<%= @specialist.id %>">
+                        <button id="delete_vacation" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
                     </form>
                   </td>
               </tr>
