@@ -1,7 +1,7 @@
 <h1><%= @specialist.first_name%> <%= @specialist.last_name%>'s information</h1>
 <div class="container">
   <div class="row">
-    <div style = "border-right: 1px solid #ccc" class="col-md-8">
+    <div style = "border-right: 1px solid #ccc" class="col-md-7">
       <form action="/specialists/<%= @specialist.id %>" method="post">
         <input type="hidden" name="_method" value="patch">
         <%= erb :specialist_partial %>
@@ -14,8 +14,8 @@
           <table class="table table-hover table-responsive table-condensed table-striped">
             <thead>
               <tr>
-                <th class="col-md-1">Start Date</th>
-                <th class="col-md-3">End Date</th>
+                <th class="col-md-2">Start Date</th>
+                <th class="col-md-2">End Date</th>
                 <th class="col-md-1">Delete</th>
               </tr>
             </thead>
