@@ -223,6 +223,13 @@ patch '/trials/:id/schedule/add' do
   redirect to "/trials/#{@trial.id}/schedule/add"
 end
 
+get '/trials/:trial_id/patient/:patient_id/schedule' do
+  @trial = Trial.find(params['trial_id'])
+  @patient = Patient.find(params['patient_id'])
+binding.pry
+  erb :patient_schedule
+end
+
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
   cal.event do |e|
