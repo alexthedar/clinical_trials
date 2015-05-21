@@ -65,6 +65,7 @@ post '/specialists/add' do
   redirect '/specialists'
 end
 
+
 delete '/specialists/:id' do
   specialist = Specialist.find(params.fetch('id').to_i)
   specialist.delete
@@ -89,23 +90,37 @@ end
 get '/vacation/:id' do
   @specialist = Specialist.find(params.fetch('id'))
   @vacations = @specialist.vacations
-  binding.pry
   erb(:vacation)
 end
 
 post '/vacation/add/:id' do
-  @specialist = Specialist.find(params.fetch('id'))
+  @specialist = Specialist.find(params.fetch('specialist_id').to_i)
   new_vacation = Vacation.create({start_date: params['start_date'], end_date: ['end_date'], specialist_id:['id'] })
   @specialist.vacations.push(new_vacation)
   redirect "/vacation/#{@specialist.id}"
 end
 
 delete '/vacation/:id' do
-  vacation = Vacation.find(params.fetch('id'))
+  @specialist = Specialist.find(params.fetch('id'))
+  vacation = Vacation.find(params.fetch('vacay_id'))
   vacation.delete
-  redirect "/vacation/#{@specialist.id}"
+  redirect "/vacation/".concat(@specialist.id().to_s())
 end
 
+post '/vacation/:id' do
+  @specialist = Specialist.find(params.fetch('id').to_i)
+  vacation = Vacation.find(params['vacay_id'])
+  start_date = params.fetch('start_date')
+  end_date = params.fecth('end_date')
+  if start_date == ""
+    start_date = vacation.start_date
+  end
+  if end_date == ""
+    end_date = vacation.end_date
+  end
+  @specialist.vacations.update({:start_date => start_date, :end_date => end_date, :specialist_id => @specialist.id()})
+  redirect "/vacation/".concat(@specialist.id().to_s())
+end
 
 get '/trials' do
   @alltrials = Trial.all
