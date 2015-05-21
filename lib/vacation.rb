@@ -7,11 +7,15 @@ class Vacation < ActiveRecord::Base
 
   end
 
-private
 
-  def date_range
-    range = self.start_date - self.end_date
-  end
+
+  # def date_range
+  #   days =[]
+  #   range = self.end_date - self.start_date
+  #   date.push[start_date]
+  #   for range.each do |date|
+  #     date.push[start_date + date]
+  # end
 
 
 end
