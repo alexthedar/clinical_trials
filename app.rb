@@ -204,6 +204,12 @@ post '/trials/:id/add/specialists' do
   redirect to "/trials/#{trial.id}"
 end
 
+get '/trials/:id/schedule' do
+  @trial = Trial.find(params['id'])
+  @schedule = @trial.schedules
+  erb :schedule
+end
+
 get '/trials/:id/schedule/add' do
   @trial = Trial.find(params['id'])
   @schedule = @trial.schedules

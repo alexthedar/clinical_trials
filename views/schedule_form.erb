@@ -18,32 +18,12 @@
   </table>
   <% if @schedule.any? %>
     <br>
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th class="col-md-1">#</th>
-          <th class="col-md-2">Visit Description</th>
-          <th class="col-md-2">Days Until Next Visit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @schedule.each do |visit| %>
-          <tr>
-            <td><%= visit.visit_number%></td>
-            <td><%= visit.description %></td>
-            <td><%= visit.days_to_next %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <ul>
-
-    </ul>
+    <%= erb :schedule_partial %>
   <% end %>
 </div>
 <div class="col-md-4 col-md-offset-2">
   <% if @trial.number_of_visits - @schedule.length > 0 %>
-    <p class="lead">Add Another Visit:</p>
-    <%= erb :add_schedule_partial %>
+    <p class="lead">Add Visit #<%= @schedule.length + 1 %></p>
+    <%= erb :schedule_add_partial %>
   <% end %>
 </div>
