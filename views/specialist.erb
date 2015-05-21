@@ -11,8 +11,29 @@
     <div class="col-md-4">
       <p class = "lead">Days Unavailable</p>
         <% if @vacations.any?%>
-
-
+          <table class="table table-hover table-responsive table-condensed table-striped">
+            <thead>
+              <tr>
+                <th class="col-md-1">Start Date</th>
+                <th class="col-md-3">End Date</th>
+                <th class="col-md-1">Delete</th>
+              </tr>
+            </thead>
+            <% @vacations.each do |vacay| %>
+            <tbody>
+              <tr>
+                  <td><%= vacay.start_date %></td>
+                  <td><%= vacay.end_date %></td>
+                  <td>
+                    <form action="/vacation/<%= vacay.id %>" method="post">
+                      <input name="_method" type="hidden" value ="delete">
+                        <button id="delete_specialist" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+                    </form>
+                  </td>
+              </tr>
+            </tbody>
+          <% end %>
+          </table>
         <% end %>
       <form id="form_id" action="/vacation/add/<%= @specialist.id %>" method="post">
         <button name="submit" type="submit" class="btn btn-sm btn-info">Edit Availability</button>

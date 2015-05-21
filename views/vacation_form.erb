@@ -2,13 +2,14 @@
 <h1>Add Day(s) Unavailable</h1>
 
 <div class="col-md-4 col-md-offset-4">
-  <form action="/vacations/add" method="post">
+  <form action="/vacation/add/<%= @specialist.id %>" method="post">
     <div class="form-group">
       <label for="start_date">Start Date</label>
       <input class="form-control" type="date" name="start_date" id="birthday" value="<%=  %>">
+    </div>
+    <div class="form-group">
       <label for="end_date">End Date</label>
       <input class="form-control" type="date" name="end_date" id="birthday" value="<%=  %>">
-
     </div>
     <button name="submit" type="submit" class="btn btn-block btn-success"><span class="glyphicon glyphicon-plus"></span></button>
   </form>
