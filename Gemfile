@@ -7,6 +7,7 @@ gem "sinatra-activerecord"
 gem "rake"
 gem "pg"
 gem "pry"
+gem 'holidays'
 
 group :test do
   gem 'capybara', require: 'capybara/rspec'

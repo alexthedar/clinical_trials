@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20150521210507) do
     t.string  "name"
     t.integer "number_of_visits"
     t.string  "description"
+    t.date    "start_date"
+    t.date    "end_date"
   end
 
   create_table "vacations", force: :cascade do |t|

@@ -1,0 +1,37 @@
+<h1><%= @patient.name%>'s Schedule</h1>
+
+<% if @patient.visits.length > 1 %>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-1">#</th>
+        <th class="col-md-2">Visit Description</th>
+        <th class="col-md-2">Days Until Next Visit</th>
+        <th class="col-md-2">Visit Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @schedule.each do |visit| %>
+        <tr>
+          <td><%= visit.visit_number%></td>
+          <td><%= visit.description %></td>
+          <td><%= visit.days_to_next %></td>
+          <td><%= visit.appt_date %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% else %>
+  <div class="col-md-6 col-md-offset-3">
+    <p class="lead text-warning">This patient has not been scheduled yet: </p>
+  <form id="form_id" action="/trials/<%= @trial.id %>/patient/<%= @patient.id%>" method="post">
+    <div class="form-group">
+      <label for="visit_date">Start Date</label>
+      <input type="date" name="visit_date" id="visit_date" class="form-control">
+    </div>
+    <button name="submit" type="submit" class="btn btn-block btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+  </form>
+  </div>
+
+<% end %>

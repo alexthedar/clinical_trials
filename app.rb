@@ -142,7 +142,8 @@ get '/trials/add' do
 end
 
 post '/trials' do
-  Trial.create(company: params['company'], name: params['name'], number_of_visits: params['visits'], description: params['description'])
+  trial = Trial.create(company: params['company'], name: params['name'], number_of_visits: params['visits'], description: params['description'], start_date: params['start_date'], end_date: params['end_date'])
+  trial_calendar = Calendar.new(start_date: trial.start_date, end_date: trial.end_date)
   redirect '/trials'
 end
 
@@ -204,6 +205,12 @@ post '/trials/:id/add/specialists' do
   redirect to "/trials/#{trial.id}"
 end
 
+get '/trials/:id/schedule' do
+  @trial = Trial.find(params['id'])
+  @schedule = @trial.schedules
+  erb :schedule
+end
+
 get '/trials/:id/schedule/add' do
   @trial = Trial.find(params['id'])
   @schedule = @trial.schedules
@@ -215,6 +222,12 @@ patch '/trials/:id/schedule/add' do
   schedule = Schedule.create(description: params['description'], visit_number: params['visit_number'], days_to_next: params['days_to_next'], trial_id: @trial.id)
   @schedule = @trial.schedules
   redirect to "/trials/#{@trial.id}/schedule/add"
+end
+
+get '/trials/:trial_id/patient/:patient_id/schedule' do
+  @trial = Trial.find(params['trial_id'])
+  @patient = Patient.find(params['patient_id'])
+  erb :patient_schedule
 end
 
 get '/events/export/events.ics' do

@@ -1,11 +1,16 @@
 <h1>Schedule for <%= @trial.name %></h1>
 
-<% if @schedule.any? %>
-  <ul>
-    <% @schedule.each do |visit| %>
-      <li>Visit description: <%= visit.description%> </li>
-      <li>Visit number: <%= visit.visit_number%></li>
-      <li>Next visit: <%= visit.days_to_next%> days</li>
+<div class="row">
+  <div class="col-md-6">
+    <% if @schedule.any? %>
+      <%= erb :schedule_partial %>
+    <% else %>
+      <p class="lead">No schedule has been created create schedule <a href="/trials/<%= @trial.id%>/schedule/add"> here</a></p>
     <% end %>
-  </ul>
-<% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <a href="/trials/<%= @trial.id %>" class="btn btn-primary" role="button">Go Back to Trial</a>
+  </div>
+</div>

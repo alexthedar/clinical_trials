@@ -6,6 +6,8 @@ class Specialist < ActiveRecord::Base
   has_many :vacations
   before_validation :strip_number
 
+
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :phone, length: { is: 10 }

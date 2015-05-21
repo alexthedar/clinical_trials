@@ -1,49 +1,35 @@
 <h1>Create the schedule for <%= @trial.name %></h1>
-
-<div class="col-md-6">
-  <p class="lead text-center">Scheduled Visits</p>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th class="col-md-2 text-center">Total Visits</th>
-        <th class="col-md-2 text-center">Visits Left to Schedule</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="text-center"><%= @trial.number_of_visits %></td>
-        <td class="text-center"><%= @trial.number_of_visits - @schedule.length %></td>
-      </tr>
-    </tbody>
-  </table>
-  <% if @schedule.any? %>
-    <br>
-    <table class="table table-hover table-bordered">
+<div class="row">
+  <div class="col-md-6">
+    <p class="lead text-center">Scheduled Visits</p>
+    <table class="table table-hover">
       <thead>
         <tr>
-          <th class="col-md-1">#</th>
-          <th class="col-md-2">Visit Description</th>
-          <th class="col-md-2">Days Until Next Visit</th>
+          <th class="col-md-2 text-center">Total Visits</th>
+          <th class="col-md-2 text-center">Visits Left to Schedule</th>
         </tr>
       </thead>
       <tbody>
-        <% @schedule.each do |visit| %>
-          <tr>
-            <td><%= visit.visit_number%></td>
-            <td><%= visit.description %></td>
-            <td><%= visit.days_to_next %></td>
-          </tr>
-        <% end %>
+        <tr>
+          <td class="text-center"><%= @trial.number_of_visits %></td>
+          <td class="text-center"><%= @trial.number_of_visits - @schedule.length %></td>
+        </tr>
       </tbody>
     </table>
-    <ul>
-
-    </ul>
-  <% end %>
+    <% if @schedule.any? %>
+      <br>
+      <%= erb :schedule_partial %>
+    <% end %>
+  </div>
+  <div class="col-md-4 col-md-offset-2">
+    <% if @trial.number_of_visits - @schedule.length > 0 %>
+      <p class="lead">Add Visit #<%= @schedule.length + 1 %></p>
+      <%= erb :schedule_add_partial %>
+    <% end %>
+  </div>
 </div>
-<div class="col-md-4 col-md-offset-2">
-  <% if @trial.number_of_visits - @schedule.length > 0 %>
-    <p class="lead">Add Another Visit:</p>
-    <%= erb :add_schedule_partial %>
-  <% end %>
+<div class="row">
+  <div class="col-md-4">
+    <a href="/trials/<%= @trial.id %>" class="btn btn-primary" role="button">Go Back to Trial</a>
+  </div>
 </div>
