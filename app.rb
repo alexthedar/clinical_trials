@@ -142,7 +142,8 @@ get '/trials/add' do
 end
 
 post '/trials' do
-  Trial.create(company: params['company'], name: params['name'], number_of_visits: params['visits'], description: params['description'])
+  trial = Trial.create(company: params['company'], name: params['name'], number_of_visits: params['visits'], description: params['description'], start_date: params['start_date'], end_date: params['end_date'])
+  trial_calendar = Calendar.new(start_date: trial.start_date, end_date: trial.end_date)
   redirect '/trials'
 end
 
