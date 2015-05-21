@@ -116,11 +116,9 @@ end
 
 patch '/vacation/edit/:id' do
   @specialist = Specialist.find(params.fetch('id').to_i)
-  binding.pry
-
   vacation = Vacation.find(params['vacay_id'])
   start_date = params.fetch('start_date')
-  end_date = params.fecth('end_date')
+  end_date = params.fetch('end_date')
   if start_date == ""
     start_date = vacation.start_date
   end
