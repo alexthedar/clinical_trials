@@ -25,7 +25,8 @@ class Trial < ActiveRecord::Base
     scheduled_visits = []
     results << conflicts
     results << scheduled_visits
-
+# TODO: Pull out destroy method to be called independently after user cancels schedule attempt
+# TODO: Create results class with conflict and scheduled_visits as structs within. Can then pass conflict and scheduled_visits messages.
     if available_dates.include?(patient_start_date)
       new_visit = Visit.create(trial_id: id, patient_id: patient.id, schedule_id: schedule[0].id, appt_date: patient_start_date)
       scheduled_visits << new_visit
