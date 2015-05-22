@@ -176,7 +176,7 @@
               </form>
             <% end %>
           <% else %>
-            <p>It appears no specialists have been added yet feel free to <a href="/patients">add a specialist</a>.</p>
+            <p class="lead">It appears no specialists have been added yet feel free to <a href="/patients">add a specialist</a>.</p>
           <% end %>
 					<% if @trial.schedules.any? %>
 						<a href="/trials/<%= @trial.id%>/schedule/add" class="btn btn-block btn-primary" role="button">View Trial Visit Template</a>
