@@ -1,60 +1,68 @@
-<h1><%= @specialist.first_name%> <%= @specialist.last_name%>'s information</h1>
 <div class="container">
-  <div class="row">
-    <div style = "border-right: 1px solid #ccc" class="col-md-7">
-      <form action="/specialists/<%= @specialist.id %>" method="post">
-        <input type="hidden" name="_method" value="patch">
-        <%= erb :specialist_partial %>
-        <button name="submit" type="submit" class="btn btn-warning">Update</button>
-      </form>
-    </div>
-    <div class="col-md-4">
-      <p class = "lead">Days Unavailable</p>
-        <% if @vacations.any?%>
-          <table class="table table-hover table-responsive table-condensed table-striped">
-            <thead>
-              <tr>
-                <th class="col-md-2">Start Date</th>
-                <th class="col-md-2">End Date</th>
-                <th class="col-md-1">Delete</th>
-              </tr>
-            </thead>
-            <% @vacations.each do |vacay| %>
-            <tbody>
-              <tr>
-                  <td><%= vacay.start_date %></td>
-                  <td><%= vacay.end_date %></td>
-                  <td>
-                    <form action="/vacation/delete/<%= vacay.id %>" method="post">
-                      <input name="_method" type="hidden" value ="delete">
-                      <input name="specialist_id" type="hidden" value ="<%= @specialist.id %>">
-                        <button id="delete_vacation" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
-                    </form>
-                  </td>
-              </tr>
-            </tbody>
-          <% end %>
-          </table>
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+        <div class="page-header">
+          <h1>
+            <%= @specialist.first_name%> <%= @specialist.last_name%><span><small> Profile Information</small></span>
+          </h1>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "border-right: 1px solid #ccc" class="col-md-7">
+          <form action="/specialists/<%= @specialist.id %>" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <%= erb :specialist_partial %>
+            <button name="submit" type="submit" class="btn btn-warning">Update</button>
+          </form>
+        </div>
+        <div class="col-md-4">
+          <p class = "lead">Days Unavailable</p>
+            <% if @vacations.any?%>
+              <table class="table table-hover table-responsive table-condensed table-striped">
+                <thead>
+                  <tr>
+                    <th class="col-md-2">Start Date</th>
+                    <th class="col-md-2">End Date</th>
+                    <th class="col-md-1">Delete</th>
+                  </tr>
+                </thead>
+                <% @vacations.each do |vacay| %>
+                <tbody>
+                  <tr>
+                      <td><%= vacay.start_date %></td>
+                      <td><%= vacay.end_date %></td>
+                      <td>
+                        <form action="/vacation/delete/<%= vacay.id %>" method="post">
+                          <input name="_method" type="hidden" value ="delete">
+                          <input name="specialist_id" type="hidden" value ="<%= @specialist.id %>">
+                            <button id="delete_vacation" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+                        </form>
+                      </td>
+                  </tr>
+                </tbody>
+              <% end %>
+              </table>
+            <% end %>
+            <a href="/vacation/<%= @specialist.id %>" class="btn btn-xs btn-info ">Edit Availability</a>
+          </form>
+        </div>
+      </div>
+    <br>
+
+    <% if @specialist.visits.any? %>
+      <ul>
+        <% @specialist.visits do |visit| %>
+        <li><a href="/visits/<%= visit.id %>"> <%= visits.name %> </a></li>
         <% end %>
-        <a href="/vacation/<%= @specialist.id %>" class="btn btn-xs btn-info ">Edit Availability</a>
-      </form>
-    </div>
-  </div>
-<br>
+      </ul>
 
-<% if @specialist.visits.any? %>
-  <ul>
-    <% @specialist.visits do |visit| %>
-    <li><a href="/visits/<%= visit.id %>"> <%= visits.name %> </a></li>
+    <% else %>
+
+
+    <p class="lead"> <%= @specialist.first_name%> <%= @specialist.last_name%> currently has no visits please see the <a href="/trials">trials</a> page to assign them to a trial.
+
+    </p>
+
     <% end %>
-  </ul>
-
-<% else %>
-
-
-<p class="lead"> <%= @specialist.first_name%> <%= @specialist.last_name%> currently has no visits please see the <a href="/trials">trials</a> page to assign them to a trial.
-
-</p>
-
-<% end %>
+  </div>
 </div>

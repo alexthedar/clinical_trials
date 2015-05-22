@@ -1,33 +1,43 @@
-<h1><%= @patient.name%>'s information</h1>
+<div class="container">
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="page-header">
+        <h1>
+          <%= @patient.name%> <span><small> Profile Information</small></span>
+        </h1>
+      </div>
+    </div>
 
-<form action="/patients/<%= @patient.id %>" method="post">
-  <input type="hidden" name="_method" value="patch">
-  <%= erb :patient_partial %>
-  <button name="submit" type="submit" class="btn btn-warning">Update</button>
-</form>
-<br>
+    <form action="/patients/<%= @patient.id %>" method="post">
+      <input type="hidden" name="_method" value="patch">
+      <%= erb :patient_partial %>
+      <button name="submit" type="submit" class="btn btn-warning">Update</button>
+    </form>
+    <br>
 
-<form action="/patients/<%= @patient.id %>" method="post">
-  <%= erb :delete_partial %>
-</form>
+    <form action="/patients/<%= @patient.id %>" method="post">
+      <%= erb :delete_partial %>
+    </form>
 
-<br>
-<% if @patient.visits.any? %>
-  <p class="lead">Trial this patient is enrolled in:</p>
-  <ul>
-    <% @patient.visits.each do |visit| %>
-      <% unless visit.trial == nil %>
+    <br>
+    <% if @patient.visits.any? %>
+      <p class="lead">Trial this patient is enrolled in:</p>
+      <ul>
+        <% @patient.visits.each do |visit| %>
+          <% unless visit.trial == nil %>
 
-      <li><a href="/trials/<%= visit.trial.id %>"> <%= visit.trial.name %> </a></li>
-      <% end %>
+          <li><a href="/trials/<%= visit.trial.id %>"> <%= visit.trial.name %> </a></li>
+          <% end %>
+        <% end %>
+      </ul>
+
+    <% else %>
+
+
+    <p class="lead"> <%= @patient.name%> currently has no visits please see the <a href="/trials">trials</a> page to assign them to a trial.
+
+    </p>
+
     <% end %>
-  </ul>
-
-<% else %>
-
-
-<p class="lead"> <%= @patient.name%> currently has no visits please see the <a href="/trials">trials</a> page to assign them to a trial.
-
-</p>
-
-<% end %>
+  </div>
+</div>

@@ -1,16 +1,28 @@
-<h1>Schedule for <%= @trial.name %></h1>
+    <div class="container">
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <div class="page-header">
+            <h1>
+              <%= @trial.name %> <span><small> Schedule</small></span>
+            </h1>
+          </div>
+        </div>
 
-<div class="row">
-  <div class="col-md-6">
-    <% if @schedule.any? %>
-      <%= erb :schedule_partial %>
-    <% else %>
-      <p class="lead">No schedule has been created create schedule <a href="/trials/<%= @trial.id%>/schedule/add"> here</a></p>
-    <% end %>
+    <h1>Schedule for <%= @trial.name %></h1>
+
+    <div class="row">
+      <div class="col-md-6">
+        <% if @schedule.any? %>
+          <%= erb :schedule_partial %>
+        <% else %>
+          <p class="lead">No schedule has been created create schedule <a href="/trials/<%= @trial.id%>/schedule/add"> here</a></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <a href="/trials/<%= @trial.id %>" class="btn btn-primary" role="button">Go Back to Trial</a>
+      </div>
+    </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-4">
-    <a href="/trials/<%= @trial.id %>" class="btn btn-primary" role="button">Go Back to Trial</a>
-  </div>
-</div>

@@ -1,53 +1,64 @@
-<h1>Create the Visit Template for <%= @trial.name %></h1>
-<div class="row">
-  <div class="col-md-6">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th class="col-md-2 text-center">Company</th>
-          <th class="col-md-2 text-center">Description</th>
-          <th class="col-md-2 text-center">Start Date</th>
-          <th class="col-md-3 text-center">End Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center"><%= @trial.company %></td>
-          <td class="text-justify"><%= @trial.description %></td>
-          <td class="text-center"><%= @trial.start_date %></td>
-          <td class="text-center"><%= @trial.end_date %></td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="lead text-center">Visit Template</p>
-    <table class="table table-hover text-center">
-      <thead>
-        <tr>
-          <th class="col-md-2 text-center">Total Visits</th>
-          <th class="col-md-2 text-center">Visits Left to Create</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center"><%= @trial.number_of_visits %></td>
-          <td class="text-center"><%= @trial.number_of_visits - @schedule_template.length %></td>
-        </tr>
-      </tbody>
-    </table>
-    <% if @schedule_template.any? %>
-      <br>
-      <%= erb :schedule_partial %>
-    <% end %>
-  </div>
-  <div class="col-md-4 col-md-offset-2">
-    <% if @trial.number_of_visits - @schedule_template.length > 0 %>
-      <p class="lead">Add Visit #<%= @schedule_template.length + 1 %></p>
-      <%= erb :schedule_add_partial %>
-    <% end %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4">
-    <a href="/trials/<%= @trial.id %>" class="btn btn-primary" role="button">Go Back to Trial</a>
+<<<<<<< HEAD
+<div class="container">
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="page-header">
+        <h1>
+          <%= @trial.name %> <span><small> Schedule</small></span>
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="col-md-2 text-center">Company</th>
+              <th class="col-md-2 text-center">Description</th>
+              <th class="col-md-2 text-center">Start Date</th>
+              <th class="col-md-3 text-center">End Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><%= @trial.company %></td>
+              <td class="text-justify"><%= @trial.description %></td>
+              <td class="text-center"><%= @trial.start_date %></td>
+              <td class="text-center"><%= @trial.end_date %></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="lead text-center">Visit Template</p>
+        <table class="table table-hover text-center">
+          <thead>
+            <tr>
+              <th class="col-md-2 text-center">Total Visits</th>
+              <th class="col-md-2 text-center">Visits Left to Create</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><%= @trial.number_of_visits %></td>
+              <td class="text-center"><%= @trial.number_of_visits - @schedule_template.length %></td>
+            </tr>
+          </tbody>
+        </table>
+        <% if @schedule_template.any? %>
+          <br>
+          <%= erb :schedule_partial %>
+        <% end %>
+      </div>
+      <div class="col-md-4 col-md-offset-2">
+        <% if @trial.number_of_visits - @schedule_template.length > 0 %>
+          <p class="lead">Add Visit #<%= @schedule_template.length + 1 %></p>
+          <%= erb :schedule_add_partial %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <a href="/trials/<%= @trial.id %>" class="btn btn-primary" role="button">Go Back to Trial</a>
+      </div>
+    </div>
   </div>
 </div>
