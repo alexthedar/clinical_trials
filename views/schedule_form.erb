@@ -1,8 +1,26 @@
 <h1>Create the schedule for <%= @trial.name %></h1>
 <div class="row">
   <div class="col-md-6">
-    <p class="lead text-center">Scheduled Visits</p>
     <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="col-md-2 text-center">Company</th>
+          <th class="col-md-2 text-center">Description</th>
+          <th class="col-md-2 text-center">Start Date</th>
+          <th class="col-md-3 text-center">End Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @trial.company %></td>
+          <td><%= @trial.description %></td>
+          <td><%= @trial.start_date %></td>
+          <td><%= @trial.end_date %></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="lead text-center">Scheduled Visits</p>
+    <table class="table table-hover text-center">
       <thead>
         <tr>
           <th class="col-md-2 text-center">Total Visits</th>
