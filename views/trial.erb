@@ -1,150 +1,186 @@
-<h1><%= @trial.name%> information</h1>
-<div class="row">
-  <div class="col-md-10 col-md-offset-1">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th class="col-md-2">Company</th>
-          <th class="col-md-2">Trial Name</th>
-          <th class="col-md-2"># of Visits</th>
-          <th class="col-md-2">Description</th>
-          <th class="col-md-2">Start Date</th>
-          <th class="col-md-3">End Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= @trial.company %></td>
-          <td><%= @trial.name %></td>
-          <td><%= @trial.number_of_visits %></td>
-          <td><%= @trial.description %></td>
-          <td><%= @trial.start_date %></td>
-          <td><%= @trial.end_date %></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<br>
-<br>
-<div class-"row">
-  <div class="col-md-6">
-    <% if @enrolled_patients.any? %>
-      <p class='lead text-center'> Current patients for this trial:</p>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th class="col-md-2 text-center">Patient Schedule</th>
-            <th class="col-md-2 text-center">Name</th>
-            <th class="col-md-2 text-center">Phone</th>
-            <th class="col-md-2 text-center">E-mail</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @enrolled_patients.each() do |patient| %>
-            <tr>
-              <td class="text-center"><a href="/trials/<%= @trial.id%>/patient/<%= patient.id%>/schedule" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a></td>
-              <td><a href="/patients/<%= patient.id%>"> <%= patient.name %></a></td>
-              <td><%= patient.phone %></td>
-              <td><%= patient.email %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% end %>
-    <% if @assigned_specialists.any? %>
-      <p class='lead text-center'> Current specialists for this trial:</p>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th class="col-md-2 text-center">Name</th>
-            <th class="col-md-2 text-center">Phone</th>
-            <th class="col-md-2 text-center">E-mail</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @assigned_specialists.each() do |specialist| %>
-            <tr>
-              <td><a href="/specialists/<%= specialist.id%>"><%= specialist.name %></a></td>
-              <td><%= specialist.phone %></td>
-              <td><%= specialist.email %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% end %>
-    <br>
-    <hr>
-    <% if @trial.schedules.any? %>
-      <a href="/trials/<%= @trial.id%>/schedule" class="btn btn-primary" role="button">View schedule </a>
-    <% else %>
-      <p class="lead text-center">No schedule has been created create schedule <a href="/trials/<%= @trial.id%>/schedule/add" class="btn btn-primary" role="button"> here</a></p>
-    <% end %>
-  </div>
-</div>
-<div class-"row">
-  <div class="col-md-4 col-md-offset-2">
-    <% if @trial.available_patients.any? %>
-      <p class="lead"> Add a new patient to the trial here </p>
-      <form action="/trials/<%= @trial.id %>/add/patients" method="post">
-        <% @patients.each do |patient| %>
-          <% unless @trial.patients.include?(patient) || patient.visits.any? %>
-            <div class="form-group">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="patient_ids[]" value="<%= patient.id %>"> <%= patient.name %>
-                </label>
-              </div>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="page-header">
+				<h1>
+          <%= @trial.name%> <span><small> <%= @trial.company%></small></span>
+				</h1>
+			</div>
+			<dl>
+			</dl>
+		</div>
+    <div class="row clearfix">
+    		<div class="col-md-4 column">
+          <p class="lead">Number of visits:</p>
+        </dt>
+        <dd>
+        <p> <%= @trial.number_of_visits %> </p>
+        </dd>
+    		</div>
+    		<div class="col-md-4 column">
+          <p class="lead"> Start Date: </p>
+        </dt>
+        <dd>
+          <p> <%= @trial.start_date %> </p>
+        </dd>
+    		</div>
+    		<div class="col-md-4 column">
+          <p class="lead"> End Date: </p>
+        </dt>
+        <dd>
+          <p> <%= @trial.end_date %> </p>
+        </dd>
+    		</div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <p class ="lead">Description:</p>
+        </dt>
+        <dd>
+          <p> <%= @trial.description %> </p>
+        </dd>
+    		</div>
+    	</div>
+	</div>
+  <br>
+  <br>
+	<div class="row clearfix">
+		<div class="col-md-8 column">
+			<div class="panel-group" id="panel-276987">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-276987" href="#panel-element-177772">View Patients</a>
+					</div>
+					<div id="panel-element-177772" class="panel-collapse collapse">
+						<div class="panel-body">
+              <div class-"row">
+                  <% if @enrolled_patients.any? %>
+                    <p class='lead text-center'> Current patients for this trial:</p>
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th class="col-md-2 text-center">Patient Schedule</th>
+                          <th class="col-md-2 text-center">Name</th>
+                          <th class="col-md-2 text-center">Phone</th>
+                          <th class="col-md-2 text-center">E-mail</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @enrolled_patients.each() do |patient| %>
+                          <tr>
+                            <td class="text-center"><a href="/trials/<%= @trial.id%>/patient/<%= patient.id%>/schedule" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a></td>
+                            <td><a href="/patients/<%= patient.id%>"> <%= patient.name %></a></td>
+                            <td><%= patient.phone %></td>
+                            <td><%= patient.email %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  <% end %>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-295864" href="#panel-element-877334">View Specialists</a>
+					</div>
+					<div id="panel-element-877334" class="panel-collapse collapse">
+						<div class="panel-body">
+              <% if @assigned_specialists.any? %>
+                <p class='lead text-center'> Current specialists for this trial:</p>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th class="col-md-2 text-center">Name</th>
+                      <th class="col-md-2 text-center">Phone</th>
+                      <th class="col-md-2 text-center">E-mail</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @assigned_specialists.each() do |specialist| %>
+                      <tr>
+                        <td><a href="/specialists/<%= specialist.id%>"><%= specialist.name %></a></td>
+                        <td><%= specialist.phone %></td>
+                        <td><%= specialist.email %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              <% end %>
+						</div>
+					</div>
+				</div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+             <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-859960" href="#panel-element-200394">Update Trial Information</a>
           </div>
-          <% end %>
-        <% end %>
-        <div class="form-group">
-          <button name="add_patients" type='submit' class="btn btn-success">Add Patients</button>
-        </div>
-      </form>
-    <% else %>
-      <p class="lead text-danger">It appears no patients are available for this trial. Feel free to <a href="/patients">add more patients</a>.</p>
-    <% end %>
-    <% if @specialists.any? %>
-      <% if @trial.specialists.length == @specialists.length %>
-        <p class="lead text-success"> All available specialists are on this trial </p>
-      <% else %>
-        <p class="lead"> Add a new specialist to the trial here </p>
-        <form action="/trials/<%= @trial.id %>/add/specialists" method="post">
-          <% @specialists.each do |specialist| %>
-            <% unless @trial.specialists.include?(specialist) %>
-              <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="specialist_ids[]" value="<%= specialist.id %>"> <%= specialist.name %>
-                  </label>
+          <div id="panel-element-200394" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="col-md-4-column">
+                  <p class="lead">Update Trial Information:</p>
+                  <form id="form_id" action="/trials/<%= @trial.id %>/update" method="post">
+                    <%= erb :trial_partial %>
+                    <button name="submit" type="submit" class="btn btn-warning">Update</button>
+                  </form>
                 </div>
+              </div>
             </div>
-            <% end %>
-          <% end %>
-          <div class="form-group">
-            <button name="add_specialists" type='submit' class="btn btn-success">Add Specialists</button>
           </div>
-        </form>
-      <% end %>
-    <% else %>
-      <p>It appears no specialists have been added yet feel free to <a href="/patients">add a specialist</a>.</p>
-    <% end %>
+			</div>
+		</div>
   </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4 col-md-offset-8">
-    <p class="lead">Update Trial Information:</p>
-    <form id="form_id" action="/trials/<%= @trial.id %>/update" method="post">
-      <%= erb :trial_partial %>
-      <button name="submit" type="submit" class="btn btn-warning">Update</button>
-    </form>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-6">
-
-  </div>
+		<div class="col-md-4 column">
+			<dl>
+				<dt>
+              <% if @trial.available_patients.any? %>
+                <p class="lead"> Add a new patient to the trial here </p>
+                <form action="/trials/<%= @trial.id %>/add/patients" method="post">
+                  <% @patients.each do |patient| %>
+                    <% unless @trial.patients.include?(patient) || patient.visits.any? %>
+                      <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="patient_ids[]" value="<%= patient.id %>"> <%= patient.name %>
+                          </label>
+                        </div>
+                    </div>
+                    <% end %>
+                  <% end %>
+                  <div class="form-group">
+                    <button name="add_patients" type='submit' class="btn btn-success">Add Patients</button>
+                  </div>
+                </form>
+              <% else %>
+                <p class="lead text-danger">It appears no patients are available for this trial. Feel free to <a href="/patients">add more patients</a>.</p>
+              <% end %>
+          <% if @specialists.any? %>
+            <% if @trial.specialists.length == @specialists.length %>
+              <p class="lead text-success"> All available specialists are on this trial </p>
+            <% else %>
+              <p class="lead"> Add a new specialist to the trial here </p>
+              <form action="/trials/<%= @trial.id %>/add/specialists" method="post">
+                <% @specialists.each do |specialist| %>
+                  <% unless @trial.specialists.include?(specialist) %>
+                    <div class="form-group">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="specialist_ids[]" value="<%= specialist.id %>"> <%= specialist.name %>
+                        </label>
+                      </div>
+                  </div>
+                  <% end %>
+                <% end %>
+                <div class="form-group">
+                  <button name="add_specialists" type='submit' class="btn btn-success">Add Specialists</button>
+                </div>
+              </form>
+            <% end %>
+          <% else %>
+            <p>It appears no specialists have been added yet feel free to <a href="/patients">add a specialist</a>.</p>
+          <% end %>
+				</dt>
+			</dl>
+		</div>
+	</div>
+	</div>
 </div>
