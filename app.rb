@@ -230,6 +230,7 @@ post '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
   @schedule_template = @trial.schedules
   @patient = Patient.find(params['patient_id'])
+# binding.pry  
   @results = @trial.schedule_patient(@patient, (params['visit_date'].to_date))
   @conflicts = @results[0]
   @visits = @patient.visits

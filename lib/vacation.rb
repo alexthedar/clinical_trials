@@ -1,8 +1,6 @@
 class Vacation < ActiveRecord::Base
   belongs_to :specialist
 
-
-
   def unavailable_dates
     vacation_dates = []
     date = self.start_date
@@ -26,6 +24,4 @@ class Vacation < ActiveRecord::Base
     end
   all_dates
   end
-
-
 end
