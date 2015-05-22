@@ -144,7 +144,7 @@ end
 get '/trials/:id' do
   @trial = Trial.find(params.fetch('id').to_i)
   @patients = Patient.all
-  @enrolled_patients = @trial.patients
+  @enrolled_patients = Patient.find(@trial.patient_ids.uniq)
   @specialists = Specialist.all
   @assigned_specialists = @trial.specialists
   erb :trial
@@ -209,35 +209,39 @@ end
 
 get '/trials/:id/schedule' do
   @trial = Trial.find(params['id'])
-  @schedule = @trial.schedules
+  @schedule_template = @trial.schedules
   erb :schedule
 end
 
 get '/trials/:id/schedule/add' do
   @trial = Trial.find(params['id'])
-  @schedule = @trial.schedules
+  @schedule_template = @trial.schedules
   erb :schedule_form
 end
 
 patch '/trials/:id/schedule/add' do
   @trial = Trial.find(params['id'])
   schedule = Schedule.create(description: params['description'], visit_number: params['visit_number'], days_to_next: params['days_to_next'], trial_id: @trial.id)
-  @schedule = @trial.schedules
+  @schedule_template = @trial.schedules
   redirect to "/trials/#{@trial.id}/schedule/add"
 end
 
 get '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
+  @schedule_template = @trial.schedules
   @patient = Patient.find(params['patient_id'])
-  @schedule = @patient.visits
+  @visits = @patient.visits
   erb :patient_schedule
 end
 
 post '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
+  @schedule_template = @trial.schedules
   @patient = Patient.find(params['patient_id'])
+# binding.pry  
   @results = @trial.schedule_patient(@patient, (params['visit_date'].to_date))
   @conflicts = @results[0]
+  @visits = @patient.visits
   erb :patient_schedule
 end
 
