@@ -22,14 +22,8 @@
     <br>
     <% if @patient.visits.any? %>
       <p class="lead">Trial this patient is enrolled in:</p>
-      <ul>
-        <% @patient.visits.each do |visit| %>
-          <% unless visit.trial == nil %>
 
-          <li><a href="/trials/<%= visit.trial.id %>"> <p class="lead"> <%= visit.trial.name %></p> </a></li>
-          <% end %>
-        <% end %>
-      </ul>
+      <a href="/trials/<%= @patient.visits[0].trial_id %>"> <p class="lead">        <%= @patient.visits[0].trial.name %> </p></a>
 
     <% else %>
 
