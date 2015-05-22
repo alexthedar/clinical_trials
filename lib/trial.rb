@@ -39,11 +39,14 @@ class Trial < ActiveRecord::Base
             new_visit = Visit.create(trial_id: id, patient_id: patient.id, schedule_id: visit_to_schedule.id, appt_date: next_date)
             scheduled_visits << new_visit
           else
+binding.pry
             if next_date.holiday?(:us)
               holiday_name = next_date.holidays(:us).first.fetch(:name)
               conflicts << ["Visit #{visit_to_schedule.visit_number} has a conflict on #{next_date}", "#{next_date} is #{holiday_name}", next_date]
             elsif next_date.weekend?
               conflicts << ["Visit #{visit_to_schedule.visit_number} has a conflict on #{next_date}", "#{next_date} is a weekend", next_date]
+            elsif next_date > self.end_date
+              conflicts << ["Visit #{visit_to_schedule.visit_number} has a conflict on #{next_date}", "#{next_date} is outside trial window", next_date]
             else
               conflicts << ["Visit #{visit_to_schedule.visit_number} has a conflict on #{next_date}", "#{next_date} is another patient visit", next_date]
             end
