@@ -1,17 +1,48 @@
 <table class="table table-hover table-bordered">
   <thead>
     <tr>
+      <th class="col-md-1 text-center">Update</th>
       <th class="col-md-1">#</th>
       <th class="col-md-2">Visit Description</th>
       <th class="col-md-2">Days Until Subsequent Visit</th>
+      <th class="text-center col-md-1">Delete</th>
+
     </tr>
   </thead>
   <tbody>
     <% @schedule_template.each do |visit| %>
       <tr>
-        <td><%= visit.visit_number%></td>
-        <td><%= visit.description %></td>
-        <td><%= visit.days_to_next %></td>
+        <td class="text-center">
+          <form action="/trials/<%= @trial.id%>/schedule/<%= visit.id%>/edit" method ="post">
+            <input name="_method" type="hidden" value ="patch">
+            <button id="update_schedule" type="submit" class="btn btn-xs btn-warning">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+
+        </td>
+        <td>
+          <input class="form-control" type="number" name="new_visit_number" id="new_visit_number" value="<%= visit.visit_number %>">
+        </td>
+        <td>
+          <input class="form-control" type="text" name="description" id="description" value="<%= visit.description %>">
+        </td>
+        <td>
+          <input class="form-control" type="number" name="days_to_next" id="days_to_next" value="<%= visit.days_to_next %>">
+          </td>
+        </form>
+        <td class="text-center">
+          <form action="/trials/<%= @trial.id%>/schedule/<%= visit.id%>/<%= visit.visit_number%>/remove" method ="post">
+            <input name="_method" type="hidden" value ="delete">
+            <input name="trial_id" type="hidden" value ="<%= @trial.id%>">
+            <input name="schedule_id" type="hidden" value ="<%= visit.id%>">
+            <input name="visit_number" type="hidden" value ="<%= visit.visit_number%>">
+            <button id="remove_schedule" type="submit" class="btn btn-xs btn-danger">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+
+          </form>
+        </td>
+
       </tr>
     <% end %>
   </tbody>
