@@ -14,14 +14,14 @@
     </thead>
     <tbody>
       <tr class="info">
-        <td><a href="/patients/add" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a></td>
+        <td><a href="/patients/add" class="btn btn-xs btn-info"><span class ="glyphicon glyphicon-plus"></span></a></td>
         <td>Add New Patient Here</td><td></td><td></td><td></td><td></td>
       </tr>
     </tbody>
   <% @patients.each do |patient| %>
     <tbody>
       <tr>
-        <td><a href="/patients/<%= patient.id %>" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a></td>
+        <td><a href="/patients/<%= patient.id %>" class="btn btn-xs btn-info"><span class ="glyphicon glyphicon-plus"></span></a></td>
         <td><%= patient.name %></td>
         <td><%= patient.phone %></td>
         <td><%= patient.email %></td>
@@ -29,7 +29,7 @@
         <td>
           <form action="/patients/<%= patient.id %>" method="post">
             <input name="_method" type="hidden" value ="delete">
-              <button id="delete_patient" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+              <button id="delete_patient" type="submit" class="btn btn-xs btn-danger"><span class ="glyphicon glyphicon-remove"></span></button>
           </form>
         </td>
       </tr>

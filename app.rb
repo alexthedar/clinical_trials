@@ -156,6 +156,8 @@ post '/trials/:id/update' do
   name = params.fetch('name')
   visits = params.fetch('visits')
   description = params.fetch('description')
+  start_date = params.fetch('start_date')
+  end_date = params.fetch('end_date')
 
   if company == ""
     company = @trial.company
@@ -169,7 +171,13 @@ post '/trials/:id/update' do
   if description == ""
     description = @trial.description
   end
-  @trial.update({:company => company, :name => name, :number_of_visits => visits, :description => description})
+  if start_date == ""
+    start_date = @trial.start_date
+  end
+  if end_date == ""
+    end_date = @trial.end_date
+  end
+  @trial.update({:company => company, :name => name, :number_of_visits => visits, :description => description, :start_date => start_date, :end_date => end_date})
 
   redirect '/trials/'.concat(@trial.id().to_s())
 end
