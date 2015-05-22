@@ -281,6 +281,9 @@ delete '/trials/:trial_id/specialist/:specialist_id/remove' do
   @specialist = Specialist.find(params['specialist_id'])
   @specialist.delete_visits(@trial.id)
 redirect "/trials/#{@trial.id}"
+
+get '/calendar/generate' do
+  erb :ical
 end
 
 get '/events/export/events.ics' do

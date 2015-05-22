@@ -26,7 +26,7 @@
         <% @patient.visits.each do |visit| %>
           <% unless visit.trial == nil %>
 
-          <li><a href="/trials/<%= visit.trial.id %>"> <%= visit.trial.name %> </a></li>
+          <li><a href="/trials/<%= visit.trial.id %>"> <p class="lead"> <%= visit.trial.name %></p> </a></li>
           <% end %>
         <% end %>
       </ul>

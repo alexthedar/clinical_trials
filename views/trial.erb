@@ -9,38 +9,24 @@
 			<dl>
 			</dl>
 		</div>
-    <div class="row clearfix">
+		<div class="row clearfix">
     		<div class="col-md-4 column">
-          <p class="lead">Number of visits:</p>
-        </dt>
-        <dd>
-        <p> <%= @trial.number_of_visits %> </p>
-        </dd>
+          <p class="lead">Number of visits: <span><small> <%= @trial.number_of_visits %> </small> </span></p>
     		</div>
     		<div class="col-md-4 column">
-          <p class="lead"> Start Date: </p>
-        </dt>
-        <dd>
-          <p> <%= @trial.start_date %> </p>
-        </dd>
+          <p class="lead"> Start Date: <span><small> <%= @trial.start_date %> </small> </span> </p>
     		</div>
     		<div class="col-md-4 column">
-          <p class="lead"> End Date: </p>
-        </dt>
-        <dd>
-          <p> <%= @trial.end_date %> </p>
-        </dd>
+          <p class="lead"> End Date: <span><small> <%= @trial.end_date %> </small> </span> </p>
     		</div>
+			</div>
+				<div class="row clearfix">
+					<div class="col-md-12 column">
+						<p class ="lead">Description:
+						<span><small> <%= @trial.description %> </small></span> </p>
+					</div>
+				</div>
       </div>
-      <div class="row clearfix">
-        <div class="col-md-12 column">
-          <p class ="lead">Description:</p>
-        </dt>
-        <dd>
-          <p> <%= @trial.description %> </p>
-        </dd>
-    		</div>
-    	</div>
 	</div>
   <br>
   <br>
@@ -155,27 +141,27 @@
 		<div class="col-md-4 column">
 			<dl>
 				<dt>
-          <% if @trial.available_patients.any? %>
-            <p class="lead"> Add a new patient to the trial here </p>
-            <form action="/trials/<%= @trial.id %>/add/patients" method="post">
-              <% @patients.each do |patient| %>
-                <% unless @trial.patients.include?(patient) || patient.visits.any? %>
-                  <div class="form-group">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" name="patient_ids[]" value="<%= patient.id %>"> <%= patient.name %>
-                      </label>
+              <% if @trial.available_patients.any? %>
+                <p class="lead"> Add a new patient to the trial here </p>
+                <form action="/trials/<%= @trial.id %>/add/patients" method="post">
+                  <% @patients.each do |patient| %>
+                    <% unless @trial.patients.include?(patient) || patient.visits.any? %>
+                      <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="patient_ids[]" value="<%= patient.id %>"> <%= patient.name %>
+                          </label>
+                        </div>
                     </div>
-	                </div>
-                <% end %>
+                    <% end %>
+                  <% end %>
+                  <div class="form-group">
+                    <button name="add_patients" type='submit' class="btn btn-success">Add Patients</button>
+                  </div>
+                </form>
+              <% else %>
+                <p class="lead text-danger">It appears no patients are available for this trial. Feel free to <a href="/patients">add more patients</a>.</p>
               <% end %>
-              <div class="form-group">
-                <button name="add_patients" type='submit' class="btn btn-success">Add Patients</button>
-              </div>
-            </form>
-          <% else %>
-            <p class="lead text-danger">It appears no patients are available for this trial. Feel free to <a href="/patients">add more patients</a>.</p>
-          <% end %>
           <% if @specialists.any? %>
             <% if @trial.specialists.length == @specialists.length %>
               <p class="lead text-success"> All available specialists are on this trial </p>
@@ -199,7 +185,7 @@
               </form>
             <% end %>
           <% else %>
-            <p>It appears no specialists have been added yet feel free to <a href="/patients">add a specialist</a>.</p>
+            <p class="lead">It appears no specialists have been added yet feel free to <a href="/patients">add a specialist</a>.</p>
           <% end %>
 					<% if @trial.schedules.any? %>
 						<a href="/trials/<%= @trial.id%>/schedule/add" class="btn btn-block btn-primary" role="button">View Trial Visit Template</a>
@@ -208,6 +194,9 @@
 					<% end %>
 				</dt>
 			</dl>
+				</dt>
+			</dl>
 		</div>
+	</div>
 	</div>
 </div>

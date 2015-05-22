@@ -1,65 +1,71 @@
 <div class="container">
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+        <div class="page-header">
+          <h1>
+            <%= @specialist.name %> <span><small> Unavailable Days</small></span>
+          </h1>
+        </div>
+      </div>
+      <p class="lead"> Current Unavailble Date(s)</p>
+        <table class="table table-hover table-responsive table-condensed">
+          <thead>
+            <tr>
+              <th class="col-md-2 text-center">Update</th>
+              <th class="col-md-4 ">Start</th>
+              <th class="col-md-4 ">End</th>
+              <th class="col-md-2 text-center">Delete</th>
+            </tr>
+          </thead>
+        <% if @vacations.any? %>
+            <tbody>
+              <% @vacations.each do |vacay| %>
+              <tr>
+                <td class="text-center">
+                  <form action="/vacation/edit/<%= @specialist.id %>" method="post">
+                    <input name="_method" type="hidden" value ="patch">
+                    <input name="vacay_id" type="hidden" value ="<%= vacay.id %>">
 
-  <h1><%= @specialist.name %> Days Unavailable</h1>
-  <p class="lead"> Current Unavailble Date(s)</p>
-    <table class="table table-hover table-responsive table-condensed">
-      <thead>
-        <tr>
-          <th class="col-md-2 text-center">Update</th>
-          <th class="col-md-4 ">Start</th>
-          <th class="col-md-4 ">End</th>
-          <th class="col-md-2 text-center">Delete</th>
-        </tr>
-      </thead>
-    <% if @vacations.any? %>
-        <tbody>
-          <% @vacations.each do |vacay| %>
-          <tr>
-            <td class="text-center">
-              <form action="/vacation/edit/<%= @specialist.id %>" method="post">
-                <input name="_method" type="hidden" value ="patch">
-                <input name="vacay_id" type="hidden" value ="<%= vacay.id %>">
-
-                  <button id="edit_vacation" type="submit" class="btn btn-xs btn-warning glyphicon glyphicon-remove"></button>
-            </td>
-              <td>
-                <input class="form-control" type="date" name="start_date" id="start_date" value="<%= vacay.start_date %>">
-              </td>
-              <td>
-                <input class="form-control" type="date" name="end_date" id="end_date" value="<%= vacay.end_date %>">
-              </td>
-            </form>
-
-              <td class="text-center">
-                <form action="/vacation/<%= @specialist.id %>" method="post">
-                  <input name="_method" type="hidden" value ="delete">
-                  <input name="vacay_id" type="hidden" value ="<%= vacay.id %>">
-                    <button id="delete_vacation" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+                      <button id="edit_vacation" type="submit" class="btn btn-xs btn-warning glyphicon glyphicon-remove"></button>
+                </td>
+                  <td>
+                    <input class="form-control" type="date" name="start_date" id="start_date" value="<%= vacay.start_date %>">
+                  </td>
+                  <td>
+                    <input class="form-control" type="date" name="end_date" id="end_date" value="<%= vacay.end_date %>">
+                  </td>
                 </form>
-              </td>
-          </tr>
-        </tbody>
+
+                  <td class="text-center">
+                    <form action="/vacation/<%= @specialist.id %>" method="post">
+                      <input name="_method" type="hidden" value ="delete">
+                      <input name="vacay_id" type="hidden" value ="<%= vacay.id %>">
+                        <button id="delete_vacation" type="submit" class="btn btn-xs btn-danger glyphicon glyphicon-remove"></button>
+                    </form>
+                  </td>
+              </tr>
+            </tbody>
+            <% end %>
+            <% else %>
+            <td></td><td class="lead"> No Unavailble Date(s)</td><td></td><td></td>
         <% end %>
-        <% else %>
-        <td></td><td class="lead"> No Unavailble Date(s)</td><td></td><td></td>
-    <% end %>
-  </table>
-  <br>
-  <p class="lead"> Add Unavailable Date(s)</p>
-    <form role = "form" class="form-inline" action="/vacation/add/<%= @specialist.id %>" method="post">
+      </table>
+      <br>
+      <p class="lead"> Add Unavailable Date(s)</p>
+        <form role = "form" class="form-inline" action="/vacation/add/<%= @specialist.id %>" method="post">
 
-        <div class="form-group col-md-3">
-          <label for="start_date">Start Date</label>
-          <input class="form-control" type="date" name="start_date" id="start_date">
-        </div>
-        <div class="form-group col-md-3">
-          <label for="end_date">End Date</label>
-          <input class="form-control " type="date" name="end_date" id="end_date">
-        </div>
-        <div class="col-md-1">
-          <button name="submit" type="submit" class=" btn btn-success glyphicon glyphicon-plus"></button>
-        </div>
-    </form>
-  <br>
-
+            <div class="form-group col-md-3">
+              <label for="start_date">Start Date</label>
+              <input class="form-control" type="date" name="start_date" id="start_date">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="end_date">End Date</label>
+              <input class="form-control " type="date" name="end_date" id="end_date">
+            </div>
+            <div class="col-md-1">
+              <button name="submit" type="submit" class=" btn btn-success glyphicon glyphicon-plus"></button>
+            </div>
+        </form>
+      <br>
+  </div>
 </div>
