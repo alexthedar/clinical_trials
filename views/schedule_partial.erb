@@ -1,7 +1,7 @@
 <table class="table table-hover table-bordered">
   <thead>
     <tr>
-      <th class="col-md-1 text-center">Update</th>
+      <!-- <th class="col-md-1 text-center">Update</th> -->
       <th class="col-md-1">#</th>
       <th class="col-md-2">Visit Description</th>
       <th class="col-md-2">Days Until Subsequent Visit</th>
@@ -12,22 +12,23 @@
   <tbody>
     <% @schedule_template.each do |visit| %>
       <tr>
-        <td class="text-center">
+        <!-- <td class="text-center">
           <form action="/trials/<%= @trial.id%>/schedule/<%= visit.id%>/edit" method ="post">
             <input name="_method" type="hidden" value ="patch">
             <button id="update_schedule" type="submit" class="btn btn-xs btn-warning">
               <span class="glyphicon glyphicon-remove"></span>
             </button>
 
+        </td> -->
+        <td><%= visit.visit_number %>
+
+          <!-- <input class="form-control" type="number" name="new_visit_number" id="new_visit_number" value="<%= visit.visit_number %>"> -->
         </td>
-        <td>
-          <input class="form-control" type="number" name="new_visit_number" id="new_visit_number" value="<%= visit.visit_number %>">
+        <td><%= visit.description %>
+          <!-- <input class="form-control" type="text" name="description" id="description" value="<%= visit.description %>"> -->
         </td>
-        <td>
-          <input class="form-control" type="text" name="description" id="description" value="<%= visit.description %>">
-        </td>
-        <td>
-          <input class="form-control" type="number" name="days_to_next" id="days_to_next" value="<%= visit.days_to_next %>">
+        <td><%= visit.days_to_next %>
+          <!-- <input class="form-control" type="number" name="days_to_next" id="days_to_next" value="<%= visit.days_to_next %>"> -->
           </td>
         </form>
         <td class="text-center">
