@@ -50,7 +50,7 @@ describe(Trial) do
       expect(trial.schedule_patient(patient, good_date)).to eq [[], [trial.visits[1], trial.visits[2]]]
     end
 
-    it 'will return an empty array of conflicts if scheduled correctly, and destroy any scheduled visits' do
+    it 'will find conflicts and return them when scheduling a patient, and destroy any scheduled visits' do
       start_date = Date.new(2015,5,15)
       end_date = Date.new(2015,5,26)
       test_date = Date.new(2015, 5, 20)

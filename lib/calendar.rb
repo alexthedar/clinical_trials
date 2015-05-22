@@ -9,11 +9,9 @@ class Calendar
   def available_dates
     dates = []
     date = @start_date
-    scheduled_visits = Visit.scheduled_visits(@start_date, @end_date)
+    scheduled_dates = Visit.scheduled_dates(@start_date, @end_date)
     until date == @end_date + 1
-      scheduled_visits.each do |visit|
-        dates << date unless date.weekend? || date.holiday?(:us) || visit.appt_date == date
-      end
+      dates << date unless date.weekend? || date.holiday?(:us) || scheduled_dates.include?(date)
       date += 1
     end
     dates

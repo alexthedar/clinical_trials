@@ -225,6 +225,16 @@ end
 get '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
   @patient = Patient.find(params['patient_id'])
+  @schedule = @patient.visits
+  erb :patient_schedule
+end
+
+post '/trials/:trial_id/patient/:patient_id/schedule' do
+  @trial = Trial.find(params['trial_id'])
+  @patient = Patient.find(params['patient_id'])
+  @results = @trial.schedule_patient(@patient, (params['visit_date'].to_date))
+  @conflicts = @results[0]
+binding.pry
   erb :patient_schedule
 end
 
