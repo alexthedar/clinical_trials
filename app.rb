@@ -144,7 +144,7 @@ end
 get '/trials/:id' do
   @trial = Trial.find(params.fetch('id').to_i)
   @patients = Patient.all
-  @enrolled_patients = @trial.patients
+  @enrolled_patients = Patient.find(@trial.patient_ids.uniq)
   @specialists = Specialist.all
   @assigned_specialists = @trial.specialists
   erb :trial
@@ -156,6 +156,8 @@ post '/trials/:id/update' do
   name = params.fetch('name')
   visits = params.fetch('visits')
   description = params.fetch('description')
+  start_date = params.fetch('start_date')
+  end_date = params.fetch('end_date')
 
   if company == ""
     company = @trial.company
@@ -169,7 +171,13 @@ post '/trials/:id/update' do
   if description == ""
     description = @trial.description
   end
-  @trial.update({:company => company, :name => name, :number_of_visits => visits, :description => description})
+  if start_date == ""
+    start_date = @trial.start_date
+  end
+  if end_date == ""
+    end_date = @trial.end_date
+  end
+  @trial.update({:company => company, :name => name, :number_of_visits => visits, :description => description, :start_date => start_date, :end_date => end_date})
 
   redirect '/trials/'.concat(@trial.id().to_s())
 end
@@ -201,35 +209,39 @@ end
 
 get '/trials/:id/schedule' do
   @trial = Trial.find(params['id'])
-  @schedule = @trial.schedules
+  @schedule_template = @trial.schedules
   erb :schedule
 end
 
 get '/trials/:id/schedule/add' do
   @trial = Trial.find(params['id'])
-  @schedule = @trial.schedules
+  @schedule_template = @trial.schedules
   erb :schedule_form
 end
 
 patch '/trials/:id/schedule/add' do
   @trial = Trial.find(params['id'])
   schedule = Schedule.create(description: params['description'], visit_number: params['visit_number'], days_to_next: params['days_to_next'], trial_id: @trial.id)
-  @schedule = @trial.schedules
+  @schedule_template = @trial.schedules
   redirect to "/trials/#{@trial.id}/schedule/add"
 end
 
 get '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
+  @schedule_template = @trial.schedules
   @patient = Patient.find(params['patient_id'])
-  @schedule = @patient.visits
+  @visits = @patient.visits
   erb :patient_schedule
 end
 
 post '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
+  @schedule_template = @trial.schedules
   @patient = Patient.find(params['patient_id'])
+# binding.pry
   @results = @trial.schedule_patient(@patient, (params['visit_date'].to_date))
   @conflicts = @results[0]
+  @visits = @patient.visits
   erb :patient_schedule
 end
 
@@ -253,27 +265,19 @@ end
 
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
-  cal.event do |e|
-    e.dtstart     = Icalendar::Values::Date.new('20050428')
-    e.dtend       = Icalendar::Values::Date.new('20050429')
-    e.summary     = "Meeting with the man."
-    e.description = "Have a long lunch meeting and decide nothing..."
-    e.ip_class    = "PRIVATE"
+  visits = Visit.all
+  visits.each do |visit|
+    if visit.appt_date
+      cal.event do |e|
+        e.dtstart     = Icalendar::Values::Date.new(visit.appt_date)
+        e.dtend       = Icalendar::Values::Date.new(visit.appt_date)
+        e.summary     = "#{Patient.find(visit.patient_id).name} enrolled in Trial: #{Trial.find(visit.trial_id).name}"
+        e.description = "Visit ##{Schedule.find(visit.schedule_id).visit_number}, #{Schedule.find(visit.schedule_id).description}. Days to subsequent visit: #{Schedule.find(visit.schedule_id).days_to_next}"
+        # e.ip_class    = "PRIVATE"
+      end
+    end
   end
-  cal.event do |e|
-    e.dtstart     = Icalendar::Values::Date.new('20150428')
-    e.dtend       = Icalendar::Values::Date.new('20150429')
-    e.summary     = "Meeting with the other man."
-    e.description = "Have a short lunch meeting and decide nothing..."
-    e.ip_class    = "PRIVATE"
-  end
-  cal.event do |e|
-    e.dtstart     = Icalendar::Values::Date.new('20150428')
-    e.dtend       = Icalendar::Values::Date.new('20150429')
-    e.summary     = "Fix Calendar."
-    e.description = "Have a short lunch meeting and decide nothing..."
-    e.ip_class    = "PRIVATE"
-  end
+
   cal.publish
   Dir[File.dirname(__FILE__) + '/views/events.ics'].each do |file|
     output = File.open( file, "w" )

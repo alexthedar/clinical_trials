@@ -3,11 +3,11 @@
     <tr>
       <th class="col-md-1">#</th>
       <th class="col-md-2">Visit Description</th>
-      <th class="col-md-2">Days Until Next Visit</th>
+      <th class="col-md-2">Days Until Subsequent Visit</th>
     </tr>
   </thead>
   <tbody>
-    <% @schedule.each do |visit| %>
+    <% @schedule_template.each do |visit| %>
       <tr>
         <td><%= visit.visit_number%></td>
         <td><%= visit.description %></td>

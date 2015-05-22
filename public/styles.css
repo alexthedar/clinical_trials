@@ -66,3 +66,7 @@ h1 small,
 .h1 small {
   color: #B8C1CF;
 }
+
+.panel-group .panel+.panel{
+  margin-top: 0px;
+  }
