@@ -17,7 +17,6 @@ describe('#unavailable_dates_for') do
     vacation = Vacation.create({start_date: '2015-01-05', end_date: '2015-01-07', specialist_id: specialist.id})
     vacation2 = Vacation.create({start_date: '2015-02-05', end_date: '2015-02-07', specialist_id: specialist.id})
     all_vacay = specialist.vacations
-    binding.pry
 
     expect(specialist.unavailable_dates).to(eq([Date.new(2015,02,5),Date.new(2015,02,06),Date.new(2015,02,07)]))
   end

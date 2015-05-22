@@ -26,7 +26,6 @@ class Trial < ActiveRecord::Base
     results << conflicts
     results << scheduled_visits
 
-binding.pry      
     if available_dates.include?(patient_start_date)
       new_visit = Visit.create(trial_id: id, patient_id: patient.id, schedule_id: schedule[0].id, appt_date: patient_start_date)
       scheduled_visits << new_visit
