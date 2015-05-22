@@ -7,26 +7,29 @@
         </h1>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th class="col-md-2 text-center">Company</th>
-              <th class="col-md-2 text-center">Description</th>
-              <th class="col-md-2 text-center">Start Date</th>
-              <th class="col-md-3 text-center">End Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-center"><%= @trial.company %></td>
-              <td class="text-justify"><%= @trial.description %></td>
-              <td class="text-center"><%= @trial.start_date %></td>
-              <td class="text-center"><%= @trial.end_date %></td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="row clearfix">
+    		<div class="col-md-4 column">
+          <p class="lead">Number of visits: <span><small> <%= @trial.number_of_visits %> </small> </span></p>
+    		</div>
+    		<div class="col-md-4 column">
+          <p class="lead"> Start Date: <span><small> <%= @trial.start_date %> </small> </span> </p>
+    		</div>
+    		<div class="col-md-4 column">
+          <p class="lead"> End Date: <span><small> <%= @trial.end_date %> </small> </span> </p>
+    		</div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <p class ="lead">Description:
+          <span><small> <%= @trial.description %> </small></span> </p>
+    		</div>
+    	</div>
+	</div>
+  <hr>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="row clearfix">
+      <div class="col-md-8 column">
         <p class="lead text-center">Visit Template</p>
         <table class="table table-hover text-center">
           <thead>
@@ -47,13 +50,15 @@
           <%= erb :schedule_partial %>
         <% end %>
       </div>
-      <div class="col-md-4 col-md-offset-2">
+      <div class="col-md-3 column">
         <% if @trial.number_of_visits - @schedule_template.length > 0 %>
           <p class="lead">Add Visit #<%= @schedule_template.length + 1 %></p>
           <%= erb :schedule_add_partial %>
         <% end %>
       </div>
     </div>
+  </div>
+</div>
     <div class="row">
       <div class="col-md-4">
         <a href="/trials/<%= @trial.id %>" class="btn btn-primary" role="button">Go Back to Trial</a>
