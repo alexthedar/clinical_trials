@@ -96,7 +96,8 @@ end
 
 get '/vacation/:id' do
   @specialist = Specialist.find(params.fetch('id'))
-  @vacations = @specialist.vacations
+  @all_vacay = @specialist.vacations
+  @vacations = @all_vacay.order(:start_date)
   erb(:vacation)
 end
 
@@ -114,18 +115,13 @@ delete '/vacation/:id' do
   redirect "/vacation/".concat(@specialist.id().to_s())
 end
 
+
 patch '/vacation/edit/:id' do
   @specialist = Specialist.find(params.fetch('id').to_i)
   vacation = Vacation.find(params['vacay_id'])
   start_date = params.fetch('start_date')
   end_date = params.fetch('end_date')
-  if start_date == ""
-    start_date = vacation.start_date
-  end
-  if end_date == ""
-    end_date = vacation.end_date
-  end
-  @specialist.vacations.update({:start_date => start_date, :end_date => end_date, :specialist_id => @specialist.id()})
+  vacation.update(start_date: start_date, end_date: end_date, specialist_id: @specialist.id)
   redirect "/vacation/".concat(@specialist.id().to_s())
 end
 
