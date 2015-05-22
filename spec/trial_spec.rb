@@ -64,5 +64,6 @@ describe(Trial) do
       expect(trial.schedule_patient(patient, good_date)).to eq [[["Visit #{schedule_1.visit_number} has a conflict on #{test_date}", test_date]], []]
       expect(trial.visits.length).to eq 1
     end
+
   end
 end

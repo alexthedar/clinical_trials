@@ -45,19 +45,30 @@
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th class="col-md-2 text-center">Patient Schedule</th>
+                          <th class="col-md-1 text-center">Patient Schedule</th>
                           <th class="col-md-2 text-center">Name</th>
                           <th class="col-md-2 text-center">Phone</th>
                           <th class="col-md-2 text-center">E-mail</th>
+													<th class="col-md-1 text-center">Remove</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% @enrolled_patients.each() do |patient| %>
                           <tr>
-                            <td class="text-center"><a href="/trials/<%= @trial.id%>/patient/<%= patient.id%>/schedule" class="btn btn-xs btn-info glyphicon glyphicon-plus"></a></td>
+                            <td class="text-center"><a href="/trials/<%= @trial.id%>/patient/<%= patient.id%>/schedule" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
                             <td><a href="/patients/<%= patient.id%>"> <%= patient.name %></a></td>
                             <td><%= patient.phone %></td>
                             <td><%= patient.email %></td>
+														<td class="text-center">
+															<form action="/trials/<%= @trial.id%>/patient/<%= patient.id%>/remove" method ="post">
+																<input name="_method" type="hidden" value ="delete">
+																<input name="trial_id" type="hidden" value ="<%= @trial.id%>">
+																<input name="patient_id" type="hidden" value ="<%= patient.id%>">
+																<button id="remove_patient_trial" type="submit" class="btn btn-xs btn-danger">
+																	<span class="glyphicon glyphicon-remove"></span>
+																</button>
+															</form>
+														</td>
                           </tr>
                         <% end %>
                       </tbody>
@@ -80,6 +91,8 @@
                       <th class="col-md-2 text-center">Name</th>
                       <th class="col-md-2 text-center">Phone</th>
                       <th class="col-md-2 text-center">E-mail</th>
+											<th class="col-md-1 text-center">Remove</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -88,6 +101,16 @@
                         <td><a href="/specialists/<%= specialist.id%>"><%= specialist.name %></a></td>
                         <td><%= specialist.phone %></td>
                         <td><%= specialist.email %></td>
+												<td class="text-center">
+													<form action="/trials/<%= @trial.id%>/specialist/<%= specialist.id%>/remove" method ="post">
+														<input name="_method" type="hidden" value ="delete">
+														<input name="trial_id" type="hidden" value ="<%= @trial.id%>">
+														<input name="specialist" type="hidden" value ="<%= specialist.id%>">
+														<button id="remove_patient_trial" type="submit" class="btn btn-xs btn-danger">
+															<span class="glyphicon glyphicon-remove"></span>
+														</button>
+													</form>
+												</td>
                       </tr>
                     <% end %>
                   </tbody>

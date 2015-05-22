@@ -25,6 +25,11 @@ class Patient < ActiveRecord::Base
     self.phone = "(#{phone[0..2]}) #{phone[3..5]}-#{phone[6..9]}"
   end
 
+  def delete_visits(trial_id)
+    Visit.delete_all("patient_id = #{self.id} AND trial_id = #{trial_id}")
+  end
+
+
 private
   def titleize_name
     self.first_name = first_name.downcase.titleize

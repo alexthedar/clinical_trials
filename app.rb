@@ -215,7 +215,8 @@ end
 
 get '/trials/:id/schedule/add' do
   @trial = Trial.find(params['id'])
-  @schedule_template = @trial.schedules
+  @temp = @trial.schedules
+  @schedule_template = @temp.order(visit_number: :asc)
   erb :schedule_form
 end
 
@@ -226,9 +227,29 @@ patch '/trials/:id/schedule/add' do
   redirect to "/trials/#{@trial.id}/schedule/add"
 end
 
+delete '/trials/:trial_id/schedule/:schedule_id/:visit_number/remove' do
+  @trial = Trial.find(params['trial_id'])
+  @visit_number = params['visit_number']
+  @schedule = Schedule.find(params['schedule_id'])
+  @schedule.delete
+  redirect to "/trials/#{@trial.id}/schedule/add"
+end
+
+patch '/trials/:trial_id/schedule/:schedule_id/edit' do
+  @trial = Trial.find(params['trial_id'])
+  @new_visit_number = params['new_visit_number']
+  @schedule = Schedule.find(params['schedule_id'])
+  @description = params['description']
+  @days_to_next = params['days_to_next']
+  @schedule.update({trial_id: @trial.id, description: @description, days_to_next: @days_to_next, visit_number: @new_visit_number})
+  redirect to "/trials/#{@trial.id}/schedule/add"
+end
+
+
 get '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
   @schedule_template = @trial.schedules
+
   @patient = Patient.find(params['patient_id'])
   @visits = @patient.visits
   erb :patient_schedule
@@ -238,7 +259,6 @@ post '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
   @schedule_template = @trial.schedules
   @patient = Patient.find(params['patient_id'])
-# binding.pry
   @results = @trial.schedule_patient(@patient, (params['visit_date'].to_date))
   @conflicts = @results[0]
   @visits = @patient.visits
@@ -248,6 +268,19 @@ end
 get '/trial_information_test' do
   erb :trial_information_test
 end
+
+delete '/trials/:trial_id/patient/:patient_id/remove' do
+  @trial = Trial.find(params['trial_id'])
+  @patient = Patient.find(params['patient_id'])
+  @patient.delete_visits(@trial.id)
+redirect "/trials/#{@trial.id}"
+end
+
+delete '/trials/:trial_id/specialist/:specialist_id/remove' do
+  @trial = Trial.find(params['trial_id'])
+  @specialist = Specialist.find(params['specialist_id'])
+  @specialist.delete_visits(@trial.id)
+redirect "/trials/#{@trial.id}"
 
 get '/calendar/generate' do
   erb :ical

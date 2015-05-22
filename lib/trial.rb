@@ -76,6 +76,17 @@ binding.pry
     results
   end
 
+  # def delete_patient(patient_id)
+  #   patient = Patient.find(patient_id)
+  #   trial_id = self.id
+  #   visits = patient.visits where trial_id
+  #   visits.each do |vis|
+  #     if vis.trial.id == trial_id
+  #       vis.delete(vis.id)
+  #     end
+  #   end
+  # end
+
 private
   def upcase
     self.name = name.titlecase
