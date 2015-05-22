@@ -1,6 +1,6 @@
 ## Clinical Trials App
 
-<a href="APP LINK IF APPLICABLE" target="#"><APP LINK NAME></a>
+<a href="http://scheduling-app.herokuapp.com/" target="#">Clinical Trial Scheduler</a>
 
 By <a href="https://github.com/alexcaste" target="#">Alex Castaneda</a>, <a href="https://github.com/savage-j" target="#">Jordan Savage</a>, <a href="https://github.com/finalfreq" target="#">James Williams</a>, & <a href="https://github.com/matchbookmac" target="#">Ian MacDonald</a>
 
@@ -56,7 +56,7 @@ Copyright  (C)  2015  for the authors listed above
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or    
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
