@@ -132,27 +132,27 @@
 		<div class="col-md-4 column">
 			<dl>
 				<dt>
-              <% if @trial.available_patients.any? %>
-                <p class="lead"> Add a new patient to the trial here </p>
-                <form action="/trials/<%= @trial.id %>/add/patients" method="post">
-                  <% @patients.each do |patient| %>
-                    <% unless @trial.patients.include?(patient) || patient.visits.any? %>
-                      <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" name="patient_ids[]" value="<%= patient.id %>"> <%= patient.name %>
-                          </label>
-                        </div>
-                    </div>
-                    <% end %>
-                  <% end %>
+          <% if @trial.available_patients.any? %>
+            <p class="lead"> Add a new patient to the trial here </p>
+            <form action="/trials/<%= @trial.id %>/add/patients" method="post">
+              <% @patients.each do |patient| %>
+                <% unless @trial.patients.include?(patient) || patient.visits.any? %>
                   <div class="form-group">
-                    <button name="add_patients" type='submit' class="btn btn-success">Add Patients</button>
-                  </div>
-                </form>
-              <% else %>
-                <p class="lead text-danger">It appears no patients are available for this trial. Feel free to <a href="/patients">add more patients</a>.</p>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" name="patient_ids[]" value="<%= patient.id %>"> <%= patient.name %>
+                      </label>
+                    </div>
+	                </div>
+                <% end %>
               <% end %>
+              <div class="form-group">
+                <button name="add_patients" type='submit' class="btn btn-success">Add Patients</button>
+              </div>
+            </form>
+          <% else %>
+            <p class="lead text-danger">It appears no patients are available for this trial. Feel free to <a href="/patients">add more patients</a>.</p>
+          <% end %>
           <% if @specialists.any? %>
             <% if @trial.specialists.length == @specialists.length %>
               <p class="lead text-success"> All available specialists are on this trial </p>
@@ -178,9 +178,13 @@
           <% else %>
             <p>It appears no specialists have been added yet feel free to <a href="/patients">add a specialist</a>.</p>
           <% end %>
+					<% if @trial.schedules.any? %>
+						<a href="/trials/<%= @trial.id%>/schedule/add" class="btn btn-block btn-primary" role="button">View Trial Visit Template</a>
+					<% else %>
+						<p class="lead text-center">No schedule has been created for this trial. Create the trial schedule <a href="/trials/<%= @trial.id%>/schedule/add" class="btn btn-primary" role="button"> here</a></p>
+					<% end %>
 				</dt>
 			</dl>
 		</div>
-	</div>
 	</div>
 </div>
