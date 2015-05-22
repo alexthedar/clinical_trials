@@ -129,6 +129,7 @@ patch '/vacation/edit/:id' do
   redirect "/vacation/".concat(@specialist.id().to_s())
 end
 
+
 get '/trials' do
   @alltrials = Trial.all
   @trials = @alltrials.order(:name)
