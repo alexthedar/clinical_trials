@@ -21,11 +21,27 @@
       <% end %>
     </tbody>
   </table>
-
+<% elsif @conflicts %>
+  <table>
+    <thead>
+        <tr>
+          <th>Conflict Description</th>
+          <th>Conflict Date</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% @conflicts.each do |conflict| %>
+        <tr>
+          <td><%= conflict[0] %></td>
+          <td><%= conflict[1] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
   <div class="col-md-6 col-md-offset-3">
     <p class="lead text-warning">This patient has not been scheduled yet: </p>
-  <form id="form_id" action="/trials/<%= @trial.id %>/patient/<%= @patient.id%>" method="post">
+  <form id="form_id" action="/trials/<%= @trial.id %>/patient/<%= @patient.id%>/schedule" method="post">
     <div class="form-group">
       <label for="visit_date">Start Date</label>
       <input type="date" name="visit_date" id="visit_date" class="form-control">
@@ -33,5 +49,4 @@
     <button name="submit" type="submit" class="btn btn-block btn-success"><span class="glyphicon glyphicon-plus"></span></button>
   </form>
   </div>
-
 <% end %>

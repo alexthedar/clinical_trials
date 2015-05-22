@@ -116,11 +116,9 @@ end
 
 patch '/vacation/edit/:id' do
   @specialist = Specialist.find(params.fetch('id').to_i)
-  binding.pry
-
   vacation = Vacation.find(params['vacay_id'])
   start_date = params.fetch('start_date')
-  end_date = params.fecth('end_date')
+  end_date = params.fetch('end_date')
   if start_date == ""
     start_date = vacation.start_date
   end
@@ -227,7 +225,21 @@ end
 get '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
   @patient = Patient.find(params['patient_id'])
+  @schedule = @patient.visits
   erb :patient_schedule
+end
+
+post '/trials/:trial_id/patient/:patient_id/schedule' do
+  @trial = Trial.find(params['trial_id'])
+  @patient = Patient.find(params['patient_id'])
+  @results = @trial.schedule_patient(@patient, (params['visit_date'].to_date))
+  @conflicts = @results[0]
+binding.pry
+  erb :patient_schedule
+end
+
+get '/trial_information_test' do
+  erb :trial_information_test
 end
 
 get '/events/export/events.ics' do
