@@ -273,14 +273,15 @@ delete '/trials/:trial_id/patient/:patient_id/remove' do
   @trial = Trial.find(params['trial_id'])
   @patient = Patient.find(params['patient_id'])
   @patient.delete_visits(@trial.id)
-redirect "/trials/#{@trial.id}"
+  redirect "/trials/#{@trial.id}"
 end
 
 delete '/trials/:trial_id/specialist/:specialist_id/remove' do
   @trial = Trial.find(params['trial_id'])
   @specialist = Specialist.find(params['specialist_id'])
   @specialist.delete_visits(@trial.id)
-redirect "/trials/#{@trial.id}"
+  redirect "/trials/#{@trial.id}"
+end
 
 get '/calendar/generate' do
   erb :ical
