@@ -249,6 +249,10 @@ get '/trial_information_test' do
   erb :trial_information_test
 end
 
+get '/calendar/generate' do
+  erb :ical
+end
+
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
   visits = Visit.all
