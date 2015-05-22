@@ -61,3 +61,8 @@ body {
   background-color: #4F74E4;
   border-color: #4169E1;
 }
+
+h1 small,
+.h1 small {
+  color: #B8C1CF;
+}
