@@ -238,7 +238,7 @@ post '/trials/:trial_id/patient/:patient_id/schedule' do
   @trial = Trial.find(params['trial_id'])
   @schedule_template = @trial.schedules
   @patient = Patient.find(params['patient_id'])
-# binding.pry  
+# binding.pry
   @results = @trial.schedule_patient(@patient, (params['visit_date'].to_date))
   @conflicts = @results[0]
   @visits = @patient.visits
@@ -251,27 +251,19 @@ end
 
 get '/events/export/events.ics' do
   cal = Icalendar::Calendar.new
-  cal.event do |e|
-    e.dtstart     = Icalendar::Values::Date.new('20050428')
-    e.dtend       = Icalendar::Values::Date.new('20050429')
-    e.summary     = "Meeting with the man."
-    e.description = "Have a long lunch meeting and decide nothing..."
-    e.ip_class    = "PRIVATE"
+  visits = Visit.all
+  visits.each do |visit|
+    if visit.appt_date
+      cal.event do |e|
+        e.dtstart     = Icalendar::Values::Date.new(visit.appt_date)
+        e.dtend       = Icalendar::Values::Date.new(visit.appt_date)
+        e.summary     = "#{Patient.find(visit.patient_id).name} enrolled in Trial: #{Trial.find(visit.trial_id).name}"
+        e.description = "Visit ##{Schedule.find(visit.schedule_id).visit_number}, #{Schedule.find(visit.schedule_id).description}. Days to subsequent visit: #{Schedule.find(visit.schedule_id).days_to_next}"
+        # e.ip_class    = "PRIVATE"
+      end
+    end
   end
-  cal.event do |e|
-    e.dtstart     = Icalendar::Values::Date.new('20150428')
-    e.dtend       = Icalendar::Values::Date.new('20150429')
-    e.summary     = "Meeting with the other man."
-    e.description = "Have a short lunch meeting and decide nothing..."
-    e.ip_class    = "PRIVATE"
-  end
-  cal.event do |e|
-    e.dtstart     = Icalendar::Values::Date.new('20150428')
-    e.dtend       = Icalendar::Values::Date.new('20150429')
-    e.summary     = "Fix Calendar."
-    e.description = "Have a short lunch meeting and decide nothing..."
-    e.ip_class    = "PRIVATE"
-  end
+
   cal.publish
   Dir[File.dirname(__FILE__) + '/views/events.ics'].each do |file|
     output = File.open( file, "w" )
