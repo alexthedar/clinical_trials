@@ -16,6 +16,8 @@ An application to ease the scheduling of patients for clinical trials. Trials wi
 tracked. The visit scheduler will notify the users of conflicts during scheduling so that visit schedules may be confidently
 generated and predicted for months in the future.
 
+This was a team ruby project.  After this I will never see a simple calender program the smae again.
+
 ### Author(s)
 
 Alex Castaneda, Jordan Savage, James Williams, & Ian MacDonald
