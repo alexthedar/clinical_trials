@@ -5,3 +5,6 @@ development:
 test:
   adapter: postgresql
   database: clinical_trials_test
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>
