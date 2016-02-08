@@ -1,6 +1,6 @@
 ## Clinical Trials App
 
-<a href="https://powerful-falls-25766.herokuapp.com/" target="#">Clinical Trial Scheduler</a> (not currently deployed)
+<a href="https://powerful-falls-25766.herokuapp.com/" target="#">Clinical Trial Scheduler</a> 
 
 By <a href="https://github.com/alexthedar" target="#">Alex Castaneda</a>, <a href="https://github.com/savage-j" target="#">Jordan Savage</a>, <a href="https://github.com/finalfreq" target="#">James Williams</a>, & <a href="https://github.com/matchbookmac" target="#">Ian MacDonald</a>
 
