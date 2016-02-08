@@ -1,8 +1,8 @@
 ## Clinical Trials App
 
-<a href="http://scheduling-app.herokuapp.com/" target="#">Clinical Trial Scheduler</a>
+<a href="/" target="#">Clinical Trial Scheduler</a> (not currently deployed)
 
-By <a href="https://github.com/alexcaste" target="#">Alex Castaneda</a>, <a href="https://github.com/savage-j" target="#">Jordan Savage</a>, <a href="https://github.com/finalfreq" target="#">James Williams</a>, & <a href="https://github.com/matchbookmac" target="#">Ian MacDonald</a>
+By <a href="https://github.com/alexthedar" target="#">Alex Castaneda</a>, <a href="https://github.com/savage-j" target="#">Jordan Savage</a>, <a href="https://github.com/finalfreq" target="#">James Williams</a>, & <a href="https://github.com/matchbookmac" target="#">Ian MacDonald</a>
 
 @ Epicodus Programming School, Portland, OR
 
